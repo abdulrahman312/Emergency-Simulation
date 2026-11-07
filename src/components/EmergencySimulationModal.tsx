@@ -240,31 +240,25 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
           {/* School Identity & 3 Official Logos + Return Button (5 Cols) */}
           <div className="xl:col-span-5 flex flex-wrap items-center justify-between gap-3 bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-3xl p-3.5 shadow-sm">
             <div className="flex items-center gap-2.5">
-              <div className="flex items-center gap-1 shrink-0">
-                <div className="h-9 w-9 rounded-xl bg-[#FAF8F5] p-1 border border-slate-200 flex items-center justify-center">
-                  <img
-                    src="/images/moe.png"
-                    alt="MoE"
-                    referrerPolicy="no-referrer"
-                    className="max-h-full max-w-full object-contain"
-                  />
-                </div>
-                <div className="h-9 w-9 rounded-xl bg-[#FAF8F5] p-1 border border-slate-200 flex items-center justify-center">
-                  <img
-                    src="/images/ataa_logoo.png"
-                    alt="Ataa"
-                    referrerPolicy="no-referrer"
-                    className="max-h-full max-w-full object-contain"
-                  />
-                </div>
-                <div className="h-9 w-9 rounded-xl bg-[#FAF8F5] p-1 border border-slate-200 flex items-center justify-center">
-                  <img
-                    src="/images/meis_logoo.png"
-                    alt="MEIS AlMuruj"
-                    referrerPolicy="no-referrer"
-                    className="max-h-full max-w-full object-contain"
-                  />
-                </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <img
+                  src="/images/moe.png"
+                  alt="MoE"
+                  referrerPolicy="no-referrer"
+                  className="h-9 w-9 object-contain"
+                />
+                <img
+                  src="/images/ataa_logoo.png"
+                  alt="Ataa"
+                  referrerPolicy="no-referrer"
+                  className="h-9 w-9 object-contain"
+                />
+                <img
+                  src="/images/meis_logoo.png"
+                  alt="MEIS AlMuruj"
+                  referrerPolicy="no-referrer"
+                  className="h-9 w-9 object-contain"
+                />
               </div>
               <div>
                 <div className="font-display text-xs sm:text-sm font-extrabold text-slate-900">

@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Siren,
-  ShieldAlert,
   PlayCircle,
   MapPin,
   ArrowRight,
@@ -53,13 +52,26 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left / Primary Editorial Column (7 Cols) */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#D97706]">
-              <ShieldAlert className="w-4 h-4 text-[#EF4444] shrink-0" aria-hidden="true" />
-              <span>
-                {isAr
-                  ? 'وزارة التعليم · شركة عطاء التعليمية · مدرسة الشرق الأوسط العالمية - المروج (الرياض)'
-                  : 'Ministry of Education · Ataa Educational Company · MEIS AlMuruj (Riyadh)'}
-              </span>
+            {/* School Identity Header: MEIS Logo on Left + English & Arabic School Name */}
+            <div dir="ltr" className="inline-flex items-center gap-3.5 text-left">
+              <img
+                src="/images/meis_logoo.png"
+                alt="Middle East International School - AlMuruj Logo"
+                referrerPolicy="no-referrer"
+                className="h-14 w-14 sm:h-16 sm:w-16 object-contain shrink-0"
+              />
+              <div>
+                <div className="font-display text-sm sm:text-lg font-extrabold text-slate-900 tracking-tight">
+                  Middle East International School - AlMuruj
+                </div>
+                <div
+                  dir="rtl"
+                  className="text-sm sm:text-base font-bold text-[#D97706] mt-0.5 text-left"
+                  style={{ fontFamily: 'var(--font-ar)' }}
+                >
+                  مدرسة الشرق الأوسط العالمية - المروج
+                </div>
+              </div>
             </div>
 
             <h1
@@ -83,29 +95,63 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 : 'Interactive classroom readiness platform designed for live lessons to educate students on Early Warning Alert procedures, Internal Shelter-in-Place, and orderly External Evacuation to designated MEIS AlMuruj Assembly Points.'}
             </p>
 
-            {/* Quick Action Buttons Inspired by Reference App */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-1">
-              <a
-                href="#moe-video"
-                className="inline-flex items-center gap-3 pl-5 pr-2.5 py-2.5 rounded-full bg-[#0D9488] hover:bg-[#0F766E] text-white text-sm font-bold shadow-md shadow-teal-600/20 transition-all whitespace-nowrap shrink-0"
-              >
-                <span>{isAr ? 'مشاهدة فيديو وزارة التعليم' : 'Watch Official MoE Video'}</span>
-                <span className="w-8 h-8 rounded-full bg-white text-[#0D9488] flex items-center justify-center shrink-0">
-                  {isAr ? (
-                    <ArrowLeft className="w-4 h-4" aria-hidden="true" />
-                  ) : (
-                    <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                  )}
-                </span>
-              </a>
+            {/* Primary Simulation CTA + Quick Action Buttons */}
+            <div className="space-y-3.5 pt-1">
+              <div className="relative inline-block w-full sm:w-auto">
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -inset-1 rounded-full border-2 border-[#EF4444]/55 animate-radar-ring"
+                />
+                <button
+                  type="button"
+                  onClick={onTriggerSimulation}
+                  data-testid="hero-primary-simulate-btn"
+                  className="relative w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-3.5 pl-5 pr-2.5 py-3 rounded-full font-display text-sm sm:text-base font-extrabold text-white shadow-xl shadow-red-500/25 border border-red-400 transition-transform active:scale-[0.99] hover:brightness-105 cursor-pointer"
+                  style={{
+                    background: 'linear-gradient(135deg, #EF4444 0%, #F97316 55%, #F59E0B 100%)',
+                  }}
+                >
+                  <span className="flex items-center gap-2.5">
+                    <Siren className="w-5 h-5 text-white shrink-0" aria-hidden="true" />
+                    <span>
+                      {isAr
+                        ? '🚨 بدء محاكاة إنذار الطوارئ الآن'
+                        : '🚨 SIMULATE EMERGENCY ALERT NOW'}
+                    </span>
+                  </span>
+                  <span className="w-8 h-8 rounded-full bg-white text-[#EF4444] flex items-center justify-center shrink-0 shadow-xs">
+                    {isAr ? (
+                      <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+                    ) : (
+                      <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                    )}
+                  </span>
+                </button>
+              </div>
 
-              <a
-                href="#campus-map"
-                className="inline-flex items-center gap-2.5 px-5 py-3 rounded-full bg-white/95 hover:bg-white border border-slate-200/90 text-sm font-bold text-slate-800 shadow-sm transition-all whitespace-nowrap shrink-0"
-              >
-                <MapPin className="w-4 h-4 text-[#10B981]" aria-hidden="true" />
-                <span>{isAr ? 'خريطة المدرسة ونقاط التجمع' : 'Explore Campus Safe Zones'}</span>
-              </a>
+              <div className="flex flex-wrap items-center gap-3">
+                <a
+                  href="#moe-video"
+                  className="inline-flex items-center gap-3 pl-5 pr-2.5 py-2.5 rounded-full bg-[#0D9488] hover:bg-[#0F766E] text-white text-sm font-bold shadow-md shadow-teal-600/20 transition-all whitespace-nowrap shrink-0"
+                >
+                  <span>{isAr ? 'مشاهدة فيديو وزارة التعليم' : 'Watch Official MoE Video'}</span>
+                  <span className="w-8 h-8 rounded-full bg-white text-[#0D9488] flex items-center justify-center shrink-0">
+                    {isAr ? (
+                      <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+                    ) : (
+                      <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                    )}
+                  </span>
+                </a>
+
+                <a
+                  href="#campus-map"
+                  className="inline-flex items-center gap-2.5 px-5 py-3 rounded-full bg-white/95 hover:bg-white border border-slate-200/90 text-sm font-bold text-slate-800 shadow-sm transition-all whitespace-nowrap shrink-0"
+                >
+                  <MapPin className="w-4 h-4 text-[#10B981]" aria-hidden="true" />
+                  <span>{isAr ? 'خريطة المدرسة ونقاط التجمع' : 'Explore Campus Safe Zones'}</span>
+                </a>
+              </div>
             </div>
 
             {/* Campus Highlights Row (Inspired by Reference "Today's Progress" Metrics) */}

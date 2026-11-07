@@ -73,33 +73,27 @@ export default function App() {
       {/* Institutional Footer with All 3 Official Logos (MoE, Ataa, MEIS AlMuruj) */}
       <footer className="border-t border-slate-200/90 bg-white py-10">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center justify-between gap-6">
-          {/* 3 Official Logos + Dual School Name */}
+          {/* 3 Official Logos (No Background Box) + Dual School Name */}
           <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-start">
-            <div className="flex items-center gap-2.5 shrink-0">
-              <div className="h-12 w-12 rounded-2xl bg-[#FAF8F5] p-1.5 border border-slate-200/90 flex items-center justify-center shadow-2xs">
-                <img
-                  src="/images/moe.png"
-                  alt="Ministry of Education Logo"
-                  referrerPolicy="no-referrer"
-                  className="max-h-full max-w-full object-contain"
-                />
-              </div>
-              <div className="h-12 w-12 rounded-2xl bg-[#FAF8F5] p-1.5 border border-slate-200/90 flex items-center justify-center shadow-2xs">
-                <img
-                  src="/images/ataa_logoo.png"
-                  alt="Ataa Educational Company Logo"
-                  referrerPolicy="no-referrer"
-                  className="max-h-full max-w-full object-contain"
-                />
-              </div>
-              <div className="h-12 w-12 rounded-2xl bg-[#FAF8F5] p-1.5 border border-slate-200/90 flex items-center justify-center shadow-2xs">
-                <img
-                  src="/images/meis_logoo.png"
-                  alt="Middle East International School AlMuruj Logo"
-                  referrerPolicy="no-referrer"
-                  className="max-h-full max-w-full object-contain"
-                />
-              </div>
+            <div className="flex items-center gap-3.5 shrink-0">
+              <img
+                src="/images/moe.png"
+                alt="Ministry of Education Logo"
+                referrerPolicy="no-referrer"
+                className="h-11 w-11 sm:h-12 sm:w-12 object-contain"
+              />
+              <img
+                src="/images/ataa_logoo.png"
+                alt="Ataa Educational Company Logo"
+                referrerPolicy="no-referrer"
+                className="h-11 w-11 sm:h-12 sm:w-12 object-contain"
+              />
+              <img
+                src="/images/meis_logoo.png"
+                alt="Middle East International School AlMuruj Logo"
+                referrerPolicy="no-referrer"
+                className="h-11 w-11 sm:h-12 sm:w-12 object-contain"
+              />
             </div>
 
             <div>

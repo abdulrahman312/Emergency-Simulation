@@ -27,33 +27,27 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-40 backdrop-blur-xl bg-white/90 border-b border-slate-200/80 shadow-xs">
       <div className="max-w-[1400px] mx-auto px-3 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-2 sm:gap-4">
-        {/* Left / Start Zone: 3 Official Logos + Dual-Language School Title */}
-        <a href="#top" className="flex items-center gap-2 sm:gap-3 min-w-0 group shrink-0">
-          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
-            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-xl sm:rounded-2xl bg-[#FAF8F5] p-1 sm:p-1.5 border border-slate-200/90 flex items-center justify-center shadow-2xs">
-              <img
-                src="/images/moe.png"
-                alt="Ministry of Education Logo"
-                referrerPolicy="no-referrer"
-                className="max-h-full max-w-full object-contain"
-              />
-            </div>
-            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-xl sm:rounded-2xl bg-[#FAF8F5] p-1 sm:p-1.5 border border-slate-200/90 flex items-center justify-center shadow-2xs">
-              <img
-                src="/images/ataa_logoo.png"
-                alt="Ataa Educational Company Logo"
-                referrerPolicy="no-referrer"
-                className="max-h-full max-w-full object-contain"
-              />
-            </div>
-            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-xl sm:rounded-2xl bg-[#FAF8F5] p-1 sm:p-1.5 border border-slate-200/90 flex items-center justify-center shadow-2xs">
-              <img
-                src="/images/meis_logoo.png"
-                alt="Middle East International School AlMuruj Logo"
-                referrerPolicy="no-referrer"
-                className="max-h-full max-w-full object-contain"
-              />
-            </div>
+        {/* Left / Start Zone: 3 Official Logos (No Background Box) + Dual-Language School Title */}
+        <a href="#top" className="flex items-center gap-2.5 sm:gap-3.5 min-w-0 group shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <img
+              src="/images/moe.png"
+              alt="Ministry of Education Logo"
+              referrerPolicy="no-referrer"
+              className="h-8 w-8 sm:h-11 sm:w-11 object-contain"
+            />
+            <img
+              src="/images/ataa_logoo.png"
+              alt="Ataa Educational Company Logo"
+              referrerPolicy="no-referrer"
+              className="h-8 w-8 sm:h-11 sm:w-11 object-contain"
+            />
+            <img
+              src="/images/meis_logoo.png"
+              alt="Middle East International School AlMuruj Logo"
+              referrerPolicy="no-referrer"
+              className="h-8 w-8 sm:h-11 sm:w-11 object-contain"
+            />
           </div>
 
           <div className="min-w-0 hidden md:block">
