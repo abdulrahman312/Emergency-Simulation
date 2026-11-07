@@ -1,8 +1,24 @@
 import React, { useState } from 'react';
-import { Users, CheckCircle, ShieldAlert } from 'lucide-react';
+import {
+  Users,
+  CheckCircle,
+  ShieldAlert,
+  PackageX,
+  Star,
+  UserCheck,
+  PhoneOff,
+  ShieldCheck,
+  DoorClosed,
+  VolumeX,
+} from 'lucide-react';
 import { Language } from '../utils/simulationLogic';
 import { AGE_GROUP_GUIDES, AgeGroupGuide } from '../data/portalContent';
 import { SwipeableImageCarousel } from './SwipeableImageCarousel';
+import {
+  HeadNeckPostureIcon,
+  WindowClearanceIcon,
+  StairsOnlyIcon,
+} from './SafetyInstructionIcons';
 
 interface AgeGroupGuideSectionProps {
   lang: Language;
@@ -141,22 +157,89 @@ export const AgeGroupGuideSection: React.FC<AgeGroupGuideSectionProps> = ({ lang
                   </p>
                 </div>
 
-                {/* Step-by-Step Instructions */}
+                {/* Step-by-Step Instructions with Tailored Visual Icons */}
                 <div className="space-y-3">
-                  {(isAr ? activeGuide.stepsAr : activeGuide.stepsEn).map((step, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start gap-3 p-3 rounded-2xl bg-[#FAF8F5] border border-slate-200/70"
-                    >
-                      <CheckCircle
-                        className="w-5 h-5 text-[#10B981] shrink-0 mt-0.5"
-                        aria-hidden="true"
-                      />
-                      <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-medium">
-                        {step}
-                      </p>
-                    </div>
-                  ))}
+                  {(isAr ? activeGuide.stepsAr : activeGuide.stepsEn).map((step, index) => {
+                    // Determine tailored icon based on active tab and step index
+                    let StepIcon: React.ComponentType<{
+                      className?: string;
+                      'aria-hidden'?: boolean | 'true' | 'false';
+                    }> = CheckCircle;
+                    let iconBg = 'bg-emerald-50 text-[#059669] border-emerald-200';
+                    let isSpecialPosture = false;
+
+                    if (activeGuide.id === 'kg') {
+                      if (index === 0) {
+                        StepIcon = PackageX;
+                        iconBg = 'bg-amber-50 text-[#D97706] border-amber-200';
+                      } else if (index === 1) {
+                        StepIcon = Users;
+                        iconBg = 'bg-teal-50 text-[#0D9488] border-teal-200';
+                      } else if (index === 2) {
+                        StepIcon = HeadNeckPostureIcon;
+                        iconBg = 'bg-red-50 text-[#DC2626] border-red-200';
+                        isSpecialPosture = true;
+                      } else if (index === 3) {
+                        StepIcon = Star;
+                        iconBg = 'bg-amber-50 text-[#F59E0B] border-amber-200';
+                      }
+                    } else if (activeGuide.id === 'elementary') {
+                      if (index === 0) {
+                        StepIcon = UserCheck;
+                        iconBg = 'bg-emerald-50 text-[#059669] border-emerald-200';
+                      } else if (index === 1) {
+                        StepIcon = WindowClearanceIcon;
+                        iconBg = 'bg-red-50 text-[#DC2626] border-red-200';
+                      } else if (index === 2) {
+                        StepIcon = StairsOnlyIcon;
+                        iconBg = 'bg-orange-50 text-[#EA580C] border-orange-200';
+                      } else if (index === 3) {
+                        StepIcon = PhoneOff;
+                        iconBg = 'bg-red-50 text-[#EF4444] border-red-200';
+                      }
+                    } else if (activeGuide.id === 'secondary') {
+                      if (index === 0) {
+                        StepIcon = ShieldCheck;
+                        iconBg = 'bg-blue-50 text-[#0284C7] border-blue-200';
+                      } else if (index === 1) {
+                        StepIcon = UserCheck;
+                        iconBg = 'bg-emerald-50 text-[#059669] border-emerald-200';
+                      } else if (index === 2) {
+                        StepIcon = DoorClosed;
+                        iconBg = 'bg-amber-50 text-[#D97706] border-amber-200';
+                      } else if (index === 3) {
+                        StepIcon = VolumeX;
+                        iconBg = 'bg-purple-50 text-[#7C3AED] border-purple-200';
+                      }
+                    }
+
+                    return (
+                      <div
+                        key={index}
+                        className={`flex items-start gap-3.5 p-3 sm:p-3.5 rounded-2xl border transition-all ${
+                          isSpecialPosture
+                            ? 'bg-red-50/40 border-red-200 shadow-2xs'
+                            : 'bg-[#FAF8F5] border-slate-200/80'
+                        }`}
+                      >
+                        <div
+                          className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 mt-0.5 shadow-2xs ${iconBg}`}
+                        >
+                          <StepIcon className="w-5 h-5" aria-hidden="true" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          {isSpecialPosture && (
+                            <span className="inline-block mb-1 text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-md bg-[#EF4444] text-white">
+                              {isAr ? 'وضعية حماية الرأس والرقبة' : 'Head & Neck Protection Posture'}
+                            </span>
+                          )}
+                          <p className="text-sm sm:text-base text-slate-800 leading-relaxed font-medium">
+                            {step}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 

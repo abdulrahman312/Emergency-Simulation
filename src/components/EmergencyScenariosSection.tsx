@@ -1,8 +1,9 @@
 import React from 'react';
-import { Shield, Footprints, CheckCircle2 } from 'lucide-react';
+import { Shield, Footprints } from 'lucide-react';
 import { Language } from '../utils/simulationLogic';
 import { EMERGENCY_SCENARIOS } from '../data/portalContent';
 import { SwipeableImageCarousel } from './SwipeableImageCarousel';
+import { ActionIconBadge, ScenarioActionKey } from './SafetyInstructionIcons';
 
 interface EmergencyScenariosSectionProps {
   lang: Language;
@@ -93,19 +94,63 @@ export const EmergencyScenariosSection: React.FC<EmergencyScenariosSectionProps>
                     </p>
                   </div>
 
-                  {/* Action Steps */}
-                  <div className="space-y-2.5 mb-6">
-                    {(isAr ? scenario.actionsAr : scenario.actionsEn).map((action, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5 text-sm text-slate-700">
-                        <CheckCircle2
-                          className={`w-4 h-4 shrink-0 mt-1 ${
-                            isInternal ? 'text-[#F59E0B]' : 'text-[#10B981]'
+                  {/* Action Steps with Tailored Educational Icons */}
+                  <div className="space-y-3 mb-6">
+                    {(isAr ? scenario.actionsAr : scenario.actionsEn).map((action, idx) => {
+                      const actionKey: ScenarioActionKey = isInternal
+                        ? ['window-away', 'desk-shelter', 'door-curtain', 'head-neck-posture'][idx] as ScenarioActionKey
+                        : ['leave-belongings', 'single-file', 'stairs-only', 'assembly-gather'][idx] as ScenarioActionKey;
+
+                      const isHeadNeck = isInternal && idx === 3;
+
+                      const actionBadgeEn = isInternal
+                        ? ['Step 1 · Glass Clearance', 'Step 2 · Desk Shelter', 'Step 3 · Doors & AC', 'Step 4 · Head & Neck Posture'][idx]
+                        : ['Step 1 · Leave Bags', 'Step 2 · Single-File Line', 'Step 3 · Stairs Only', 'Step 4 · Safe Assembly'][idx];
+
+                      const actionBadgeAr = isInternal
+                        ? ['الخطوة ١ · الابتعاد عن الزجاج', 'الخطوة ٢ · الاحتماء تحت الطاولة', 'الخطوة ٣ · إغلاق الأبواب والتكييف', 'الخطوة ٤ · وضعية حماية الرأس والرقبة'][idx]
+                        : ['الخطوة ١ · ترك الحقائب فوراً', 'الخطوة ٢ · صف فردي منظم', 'الخطوة ٣ · استخدام الدرج فقط', 'الخطوة ٤ · نقطة التجمع والحصر'][idx];
+
+                      return (
+                        <div
+                          key={idx}
+                          className={`flex items-start gap-3.5 p-3 rounded-2xl border transition-all ${
+                            isHeadNeck
+                              ? 'bg-amber-50/90 border-[#F59E0B] shadow-xs'
+                              : 'bg-[#FAF8F5] border-slate-200/70 hover:border-slate-300'
                           }`}
-                          aria-hidden="true"
-                        />
-                        <span className="leading-relaxed">{action}</span>
-                      </div>
-                    ))}
+                        >
+                          <ActionIconBadge
+                            actionKey={actionKey}
+                            variant={isInternal ? 'amber' : 'emerald'}
+                            className="w-10 h-10 mt-0.5"
+                          />
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span
+                                className={`text-[11px] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-md ${
+                                  isHeadNeck
+                                    ? 'bg-[#EF4444] text-white'
+                                    : isInternal
+                                    ? 'bg-amber-100 text-[#B45309]'
+                                    : 'bg-emerald-100 text-[#047857]'
+                                }`}
+                              >
+                                {isAr ? actionBadgeAr : actionBadgeEn}
+                              </span>
+                              {isHeadNeck && (
+                                <span className="text-[10px] font-bold text-[#DC2626] animate-pulse">
+                                  {isAr ? 'وضعية الحماية الأساسية' : 'Key Protective Posture'}
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-sm text-slate-800 leading-relaxed font-medium">
+                              {action}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
 

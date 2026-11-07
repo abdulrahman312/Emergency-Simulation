@@ -7,6 +7,10 @@ import {
   Play,
   Pause,
   RotateCcw,
+  AlertOctagon,
+  ShieldCheck,
+  Car,
+  MessageSquare,
 } from 'lucide-react';
 import { Language, getBreathingState } from '../utils/simulationLogic';
 import { EMERGENCY_CONTACTS } from '../data/portalContent';
@@ -171,20 +175,29 @@ export const BreathingAndSafetySection: React.FC<BreathingAndSafetySectionProps>
                       ? 'عدم لمس أو الاقتراب من أي أجسام غريبة والانتظار حتى التصريح الرسمي'
                       : 'Never Touch Suspicious Objects & Wait for Official Clearance'}
                   </h3>
-                  <ul className="space-y-2 text-sm text-slate-700 leading-relaxed font-medium">
-                    <li>
-                      •{' '}
-                      {isAr
-                        ? 'يُمنع منعاً باتاً لمس أو الاقتراب من أي جسم غريب أو مشبوه على الأرض أو في الساحات أو الأسطح، ويجب إبلاغ المعلمين أو إدارة المدرسة فوراً.'
-                        : 'Never touch, move, or approach any strange or unfamiliar object on the ground, courtyard, or roof; report it immediately to teachers or school management.'}
-                    </li>
-                    <li>
-                      •{' '}
-                      {isAr
-                        ? 'لا تعُد إلى المبنى المدرسي أو الفصول الدراسية إلا بعد صدور التصريح الرسمي بالتأكد من سلامة المبنى.'
-                        : 'Do not return inside the school building or classrooms until official safety clearance is announced by school leadership.'}
-                    </li>
-                  </ul>
+                  <div className="space-y-2.5">
+                    <div className="flex items-start gap-3 p-3 rounded-2xl bg-red-50/50 border border-red-100 text-sm text-slate-800 leading-relaxed font-medium">
+                      <div className="w-8 h-8 rounded-xl bg-red-100 border border-red-200 text-[#DC2626] flex items-center justify-center shrink-0 mt-0.5">
+                        <AlertOctagon className="w-4 h-4" aria-hidden="true" />
+                      </div>
+                      <p className="flex-1">
+                        {isAr
+                          ? 'يُمنع منعاً باتاً لمس أو الاقتراب من أي جسم غريب أو مشبوه على الأرض أو في الساحات أو الأسطح، ويجب إبلاغ المعلمين أو إدارة المدرسة فوراً.'
+                          : 'Never touch, move, or approach any strange or unfamiliar object on the ground, courtyard, or roof; report it immediately to teachers or school management.'}
+                      </p>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 rounded-2xl bg-red-50/50 border border-red-100 text-sm text-slate-800 leading-relaxed font-medium">
+                      <div className="w-8 h-8 rounded-xl bg-red-100 border border-red-200 text-[#DC2626] flex items-center justify-center shrink-0 mt-0.5">
+                        <ShieldCheck className="w-4 h-4" aria-hidden="true" />
+                      </div>
+                      <p className="flex-1">
+                        {isAr
+                          ? 'لا تعُد إلى المبنى المدرسي أو الفصول الدراسية إلا بعد صدور التصريح الرسمي بالتأكد من سلامة المبنى.'
+                          : 'Do not return inside the school building or classrooms until official safety clearance is announced by school leadership.'}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -201,25 +214,34 @@ export const BreathingAndSafetySection: React.FC<BreathingAndSafetySectionProps>
                       ? 'إرشادات أولياء الأمور الكرام'
                       : 'Official Parent & Guardian Protocol'}
                   </div>
-                  <h3 className="font-display text-lg sm:text-xl font-extrabold text-slate-900 mb-2">
+                  <h3 className="font-display text-lg sm:text-xl font-extrabold text-slate-900 mb-3">
                     {isAr
                       ? 'إبقاء مسارات الطوارئ خالية ومتابعة الرسائل النصية الرسمية'
                       : 'Keep Emergency Lanes Clear & Follow Official School SMS'}
                   </h3>
-                  <ul className="space-y-2 text-sm text-slate-700 leading-relaxed font-medium">
-                    <li>
-                      •{' '}
-                      {isAr
-                        ? 'نرجو عدم الاندفاع نحو المدرسة أثناء الإنذار النشط لإبقاء الشوارع المحيطة ومسارات مركبات الطوارئ والدفاع المدني سالكة تماماً.'
-                        : 'Do not rush to the campus during an active alert so surrounding roads and emergency vehicle lanes remain completely clear.'}
-                    </li>
-                    <li>
-                      •{' '}
-                      {isAr
-                        ? 'تابع رسائل المدرسة النصية (SMS) الرسمية لمعرفة مواعيد الانصراف المنظم، مع إحضار بطاقة الهوية أو تصريح الاستلام المعتمد.'
-                        : 'Follow official school SMS notifications and bring authorized ID for organized, verified student dismissal.'}
-                    </li>
-                  </ul>
+                  <div className="space-y-2.5">
+                    <div className="flex items-start gap-3 p-3 rounded-2xl bg-amber-50/50 border border-amber-100 text-sm text-slate-800 leading-relaxed font-medium">
+                      <div className="w-8 h-8 rounded-xl bg-amber-100 border border-amber-200 text-[#B45309] flex items-center justify-center shrink-0 mt-0.5">
+                        <Car className="w-4 h-4" aria-hidden="true" />
+                      </div>
+                      <p className="flex-1">
+                        {isAr
+                          ? 'نرجو عدم الاندفاع نحو المدرسة أثناء الإنذار النشط لإبقاء الشوارع المحيطة ومسارات مركبات الطوارئ والدفاع المدني سالكة تماماً.'
+                          : 'Do not rush to the campus during an active alert so surrounding roads and emergency vehicle lanes remain completely clear.'}
+                      </p>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 rounded-2xl bg-amber-50/50 border border-amber-100 text-sm text-slate-800 leading-relaxed font-medium">
+                      <div className="w-8 h-8 rounded-xl bg-amber-100 border border-amber-200 text-[#B45309] flex items-center justify-center shrink-0 mt-0.5">
+                        <MessageSquare className="w-4 h-4" aria-hidden="true" />
+                      </div>
+                      <p className="flex-1">
+                        {isAr
+                          ? 'تابع رسائل المدرسة النصية (SMS) الرسمية لمعرفة مواعيد الانصراف المنظم، مع إحضار بطاقة الهوية أو تصريح الاستلام المعتمد.'
+                          : 'Follow official school SMS notifications and bring authorized ID for organized, verified student dismissal.'}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

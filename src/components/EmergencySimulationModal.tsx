@@ -14,6 +14,7 @@ import {
   Globe,
   Clock,
   ShieldCheck,
+  PackageX,
 } from 'lucide-react';
 import {
   Language,
@@ -22,6 +23,11 @@ import {
   calculateDrillPerformance,
 } from '../utils/simulationLogic';
 import { SwipeableImageCarousel } from './SwipeableImageCarousel';
+import {
+  HeadNeckPostureIcon,
+  WindowClearanceIcon,
+  StairsOnlyIcon,
+} from './SafetyInstructionIcons';
 
 interface EmergencySimulationModalProps {
   lang: Language;
@@ -642,6 +648,18 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                   : '1. Alert Received & Immediate Protection'}
               </h3>
 
+              {/* Educational Action Badges with Icons */}
+              <div className="flex flex-wrap gap-2 mb-3">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-red-100 text-[#DC2626] text-xs font-extrabold border border-red-200">
+                  <HeadNeckPostureIcon className="w-4 h-4 text-[#DC2626]" />
+                  <span>{isAr ? 'وضعية حماية الرأس والرقبة' : 'Head & Neck Posture'}</span>
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-amber-100 text-[#B45309] text-xs font-bold border border-amber-200">
+                  <WindowClearanceIcon className="w-4 h-4 text-[#B45309]" />
+                  <span>{isAr ? 'الابتعاد عن النوافذ' : 'Away from Glass'}</span>
+                </span>
+              </div>
+
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
                 {isAr
                   ? 'أوقف الدرس فوراً، التزم الهدوء التام، ابتعد عن النوافذ الزجاجية، واحتمِ تحت الطاولة (انزل، احتمِ، تمسك) أو قف مستعداً بجانب المقعد.'
@@ -710,6 +728,18 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                   : '2. Orderly Movement & Following Instructions'}
               </h3>
 
+              {/* Educational Action Badges with Icons */}
+              <div className="flex flex-wrap gap-2 mb-3">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-orange-100 text-[#EA580C] text-xs font-extrabold border border-orange-200">
+                  <PackageX className="w-4 h-4 text-[#EA580C]" />
+                  <span>{isAr ? 'ترك الحقائب خلفك' : 'Leave Bags Behind'}</span>
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-orange-100 text-[#C2410C] text-xs font-extrabold border border-orange-200">
+                  <StairsOnlyIcon className="w-4 h-4 text-[#C2410C]" />
+                  <span>{isAr ? 'استخدام الدرج فقط' : 'Stairs Only (No Elevators)'}</span>
+                </span>
+              </div>
+
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
                 {isAr
                   ? 'اترك جميع الحقائب والمقتنيات خلفك. سر بهدوء في صف فردي دون ركض. استخدم الدرج فقط — يمنع استخدام المصاعد نهائياً. ساعد زملاءك.'
@@ -777,6 +807,18 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                   ? '٣. الوصول لنقطة التجمع الآمنة وحصر الطلاب'
                   : '3. Reaching Assembly Point & Class Roll Call'}
               </h3>
+
+              {/* Educational Action Badges with Icons */}
+              <div className="flex flex-wrap gap-2 mb-3">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-100 text-[#047857] text-xs font-extrabold border border-emerald-200">
+                  <MapPin className="w-4 h-4 text-[#047857]" />
+                  <span>{isAr ? 'نقطة التجمع الآمنة' : 'Safe Assembly Point'}</span>
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-teal-100 text-[#0F766E] text-xs font-extrabold border border-teal-200">
+                  <Users className="w-4 h-4 text-[#0F766E]" />
+                  <span>{isAr ? 'حصر الطلاب' : 'Class Roll Call'}</span>
+                </span>
+              </div>
 
               {/* Stage 3 Interactive Swipeable Carousel */}
               <div className="mb-3">
