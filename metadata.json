@@ -1,0 +1,6 @@
+{
+  "name": "Vercel Website Starter",
+  "description": "Bilingual (English & Arabic) Emergency Readiness & Virtual Evacuation Simulation Portal for Middle East International School - AlMuruj under Ataa Educational Company and the Ministry of Education.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

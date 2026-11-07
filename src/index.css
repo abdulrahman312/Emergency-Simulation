@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display-en: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans-en: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-ar: 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  }
+
+  html[dir="ltr"] body {
+    font-family: var(--font-sans-en);
+  }
+
+  html[dir="ltr"] h1,
+  html[dir="ltr"] h2,
+  html[dir="ltr"] h3,
+  html[dir="ltr"] h4,
+  html[dir="ltr"] .font-display {
+    font-family: var(--font-display-en);
+  }
+
+  html[dir="rtl"] body,
+  html[dir="rtl"] h1,
+  html[dir="rtl"] h2,
+  html[dir="rtl"] h3,
+  html[dir="rtl"] h4,
+  html[dir="rtl"] .font-display {
+    font-family: var(--font-ar);
+  }
+
+  body {
+    background-color: #FAF8F5;
+    color: #0F172A;
+    overflow-x: hidden;
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@keyframes radar-ring {
+  0% {
+    transform: scale(0.97);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.09);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.09);
+    opacity: 0;
+  }
+}
+
+.animate-radar-ring {
+  animation: radar-ring 2.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.animate-emergency-border {
+  box-shadow: inset 0 0 0 4px rgba(239, 68, 68, 0.85);
+}
+
