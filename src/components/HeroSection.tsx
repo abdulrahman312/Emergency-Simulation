@@ -217,18 +217,38 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 </div>
               </div>
 
-              {/* Campus Building 1 Preview Card inside Command Deck */}
-              <div className="relative rounded-2xl overflow-hidden aspect-[16/8] mb-5 border border-slate-200">
-                <img
-                  src="/images/Building 1.jpg"
-                  alt="MEIS AlMuruj Campus Building 1"
-                  referrerPolicy="no-referrer"
+              {/* Live Siren Video Preview Card inside Command Deck */}
+              <div
+                onClick={onTriggerSimulation}
+                className="relative rounded-2xl overflow-hidden aspect-video mb-5 border-2 border-[#EF4444]/80 bg-slate-950 shadow-md cursor-pointer group"
+              >
+                <video
+                  src="/videos/Siren Video.mp4"
+                  poster="/images/Building 1.jpg"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/20 to-transparent p-3.5 flex items-end justify-between">
+                <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#EF4444] text-white text-[11px] font-extrabold shadow-sm">
+                    <span className="w-2 h-2 rounded-full bg-white animate-ping" />
+                    <span>{isAr ? 'فيديو صافرة الإنذار المباشر' : 'LIVE SIREN VIDEO'}</span>
+                  </span>
+                  <span
+                    dir="ltr"
+                    className="px-2.5 py-1 rounded-lg bg-slate-950/80 text-white font-mono text-[11px] font-semibold backdrop-blur-xs"
+                  >
+                    /videos/Siren Video.mp4
+                  </span>
+                </div>
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/85 via-slate-950/35 to-transparent p-3.5 flex items-end justify-between pointer-events-none">
                   <div className="text-white">
                     <div className="text-xs font-bold text-[#FDE047]">
-                      {isAr ? 'الحرم المدرسي · المبنى ١' : 'MEIS AlMuruj Campus · Building 1'}
+                      {isAr
+                        ? 'معاينة حية لفيديو صافرة الإنذار · اضغط لبدء المحاكاة بالصوت'
+                        : 'Live Siren Video Preview · Click to launch with full audio'}
                     </div>
                     <div className="text-xs text-slate-100">
                       {isAr

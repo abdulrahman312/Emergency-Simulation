@@ -213,22 +213,22 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
           : 'animate-emergency-border'
       }`}
     >
-      {/* Background Loop Video (/videos/Siren Video.mp4) with Light Translucent Overlay */}
+      {/* Ambient Background Loop Video (/videos/Siren Video.mp4) */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <video
-          ref={sirenVideoRef}
           src="/videos/Siren Video.mp4"
           autoPlay
           loop
+          muted
           playsInline
-          className="w-full h-full object-cover opacity-22"
+          className="w-full h-full object-cover opacity-40"
         />
         <div
           className="absolute inset-0"
           style={{
             background: isCompleted
-              ? 'linear-gradient(180deg, rgba(236, 253, 245, 0.92) 0%, rgba(250, 248, 245, 0.95) 100%)'
-              : 'linear-gradient(180deg, rgba(254, 242, 242, 0.90) 0%, rgba(255, 251, 235, 0.93) 100%)',
+              ? 'linear-gradient(180deg, rgba(236, 253, 245, 0.85) 0%, rgba(250, 248, 245, 0.90) 100%)'
+              : 'linear-gradient(180deg, rgba(254, 242, 242, 0.78) 0%, rgba(255, 251, 235, 0.84) 100%)',
           }}
         />
       </div>
@@ -392,57 +392,91 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
           </div>
         </div>
 
-        {/* Immediate On-Screen Emergency Banner OR Completion Banner */}
+        {/* Immediate On-Screen Emergency Banner + Prominent Top Siren Video Player OR Completion Banner */}
         {!isCompleted ? (
-          <div className="bg-white border-2 border-[#EF4444] rounded-3xl p-5 sm:p-6 shadow-[0_20px_50px_-15px_rgba(239,68,68,0.2)]">
+          <div className="bg-white/95 backdrop-blur-xl border-2 border-[#EF4444] rounded-3xl p-5 sm:p-6 shadow-[0_20px_50px_-15px_rgba(239,68,68,0.25)]">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-              <div className="lg:col-span-8 flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-[#EF4444] flex items-center justify-center shrink-0 shadow-md shadow-red-500/30">
-                  <Siren className="w-7 h-7 text-white" aria-hidden="true" />
-                </div>
-                <div className="space-y-1.5 flex-1">
-                  <p
-                    dir="ltr"
-                    className="font-display text-base sm:text-xl font-extrabold text-[#DC2626] leading-snug text-start"
-                  >
-                    EMERGENCY ALERT! An evacuation drill is now in progress. Please stop the lesson and follow the emergency instructions.
-                  </p>
-                  <p
-                    dir="rtl"
-                    className="text-base sm:text-xl font-extrabold text-slate-900 leading-snug text-start"
-                    style={{ fontFamily: 'var(--font-ar)' }}
-                  >
-                    إنذار طوارئ! يجري الآن تمرين إخلاء افتراضي. يرجى إيقاف الدرس فوراً واتباع تعليمات الطوارئ.
-                  </p>
+              {/* Prominent Live Siren Video Player at the Top of the Simulation (5 Cols) */}
+              <div className="lg:col-span-5">
+                <div className="relative rounded-2xl overflow-hidden border-2 border-[#EF4444] bg-slate-950 shadow-lg aspect-video">
+                  <video
+                    ref={sirenVideoRef}
+                    src="/videos/Siren Video.mp4"
+                    poster="/images/Building 1.jpg"
+                    autoPlay
+                    loop
+                    playsInline
+                    controls
+                    data-testid="live-siren-video-player"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#EF4444] text-white text-[11px] font-extrabold shadow-sm">
+                      <span className="w-2 h-2 rounded-full bg-white animate-ping" />
+                      <span>
+                        {isAr ? 'بث صافرة الإنذار المباشر' : 'LIVE EMERGENCY SIREN VIDEO'}
+                      </span>
+                    </span>
+                    <span
+                      dir="ltr"
+                      className="px-2.5 py-1 rounded-lg bg-slate-950/80 text-white font-mono text-[11px] font-semibold backdrop-blur-xs"
+                    >
+                      /videos/Siren Video.mp4
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              {/* Live Drill Countdown Timer (04:00) & Elapsed Stopwatch */}
-              <div className="lg:col-span-4 grid grid-cols-2 gap-3">
-                <div className="p-3.5 rounded-2xl bg-[#FFFBEB] border-2 border-[#F59E0B] text-center">
-                  <div className="flex items-center justify-center gap-1.5 text-[11px] font-extrabold text-[#B45309]">
-                    <Clock className="w-3.5 h-3.5" aria-hidden="true" />
-                    <span>{isAr ? 'العد التنازلي المستهدف' : 'Target Countdown'}</span>
+              {/* Emergency Alert Bilingual Notice + Countdown Timers (7 Cols) */}
+              <div className="lg:col-span-7 space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-[#EF4444] flex items-center justify-center shrink-0 shadow-md shadow-red-500/30">
+                    <Siren className="w-7 h-7 text-white" aria-hidden="true" />
                   </div>
-                  <div
-                    dir="ltr"
-                    data-testid="countdown-timer"
-                    className="mt-1 font-mono text-2xl sm:text-3xl font-extrabold text-[#D97706] tabular-nums"
-                  >
-                    {formatTimeMMSS(countdownRemaining)}
+                  <div className="space-y-1.5 flex-1">
+                    <p
+                      dir="ltr"
+                      className="font-display text-base sm:text-lg font-extrabold text-[#DC2626] leading-snug text-start"
+                    >
+                      EMERGENCY ALERT! An evacuation drill is now in progress. Please stop the lesson and follow the emergency instructions.
+                    </p>
+                    <p
+                      dir="rtl"
+                      className="text-base sm:text-lg font-extrabold text-slate-900 leading-snug text-start"
+                      style={{ fontFamily: 'var(--font-ar)' }}
+                    >
+                      إنذار طوارئ! يجري الآن تمرين إخلاء افتراضي. يرجى إيقاف الدرس فوراً واتباع تعليمات الطوارئ.
+                    </p>
                   </div>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-[#FAF8F5] border border-slate-200 text-center">
-                  <div className="text-[11px] font-bold text-slate-600">
-                    {isAr ? 'زمن الاستجابة المنقضي' : 'Elapsed Stopwatch'}
+                {/* Live Drill Countdown Timer (04:00) & Elapsed Stopwatch */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="p-3.5 rounded-2xl bg-[#FFFBEB] border-2 border-[#F59E0B] text-center">
+                    <div className="flex items-center justify-center gap-1.5 text-[11px] font-extrabold text-[#B45309]">
+                      <Clock className="w-3.5 h-3.5" aria-hidden="true" />
+                      <span>{isAr ? 'العد التنازلي المستهدف' : 'Target Countdown'}</span>
+                    </div>
+                    <div
+                      dir="ltr"
+                      data-testid="countdown-timer"
+                      className="mt-1 font-mono text-2xl sm:text-3xl font-extrabold text-[#D97706] tabular-nums"
+                    >
+                      {formatTimeMMSS(countdownRemaining)}
+                    </div>
                   </div>
-                  <div
-                    dir="ltr"
-                    data-testid="elapsed-stopwatch"
-                    className="mt-1 font-mono text-2xl sm:text-3xl font-extrabold text-slate-900 tabular-nums"
-                  >
-                    {formatTimeMMSS(elapsedSeconds)}
+
+                  <div className="p-3.5 rounded-2xl bg-[#FAF8F5] border border-slate-200 text-center">
+                    <div className="text-[11px] font-bold text-slate-600">
+                      {isAr ? 'زمن الاستجابة المنقضي' : 'Elapsed Stopwatch'}
+                    </div>
+                    <div
+                      dir="ltr"
+                      data-testid="elapsed-stopwatch"
+                      className="mt-1 font-mono text-2xl sm:text-3xl font-extrabold text-slate-900 tabular-nums"
+                    >
+                      {formatTimeMMSS(elapsedSeconds)}
+                    </div>
                   </div>
                 </div>
               </div>
