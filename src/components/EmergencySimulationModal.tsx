@@ -42,6 +42,8 @@ import {
   DeskShelterIcon,
   StairsOnlyIcon,
 } from './SafetyInstructionIcons';
+import { GRADE_EVACUATION_PLAN } from '../data/portalContent';
+import { Building2, DoorOpen, GraduationCap } from 'lucide-react';
 
 interface EmergencySimulationModalProps {
   lang: Language;
@@ -77,37 +79,6 @@ interface StageConfig {
   points: StageInstructionPoint[];
 }
 
-const STAGE5_GALLERY_PHOTOS = [
-  {
-    src: '/images/Student In Line.jpg',
-    titleEn: 'Students Moving in Proper Single-File Line',
-    titleAr: 'طلاب يسيرون في صف فردي منتظم بإشراف المعلم',
-    badgeEn: 'Orderly Line · Stairs Only',
-    badgeAr: 'صف منتظم · استخدام الدرج فقط',
-  },
-  {
-    src: '/images/Assembly Point Boys 1.jpg',
-    titleEn: 'Boys Safe Assembly Point 1',
-    titleAr: 'نقطة التجمع الآمنة للبنين ١',
-    badgeEn: 'Boys Assembly Zone 1',
-    badgeAr: 'نقطة تجمع البنين ١',
-  },
-  {
-    src: '/images/Assembly Point Boys 2.jpg',
-    titleEn: 'Boys Safe Assembly Point 2',
-    titleAr: 'نقطة التجمع الآمنة للبنين ٢',
-    badgeEn: 'Boys Assembly Zone 2',
-    badgeAr: 'نقطة تجمع البنين ٢',
-  },
-  {
-    src: '/images/Assembly Point Girls 2.jpg',
-    titleEn: 'Girls Safe Assembly Point',
-    titleAr: 'نقطة التجمع الآمنة للبنات',
-    badgeEn: 'Girls Assembly Zone',
-    badgeAr: 'نقطة تجمع البنات',
-  },
-];
-
 export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> = ({
   lang,
   onToggleLanguage,
@@ -139,8 +110,8 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
   const [breathingCycleSeconds, setBreathingCycleSeconds] = useState<number>(0);
   const [isBreathingPaused, setIsBreathingPaused] = useState<boolean>(false);
 
-  // Stage 5 active photo index & Class Roll-Call Counter
-  const [stage5PhotoIndex, setStage5PhotoIndex] = useState<number>(0);
+  // Stage 5 Evacuation Plan Department Filter & Class Roll-Call Counter
+  const [evacFilter, setEvacFilter] = useState<'all' | 'kg' | 'primary' | 'girls' | 'boys'>('all');
   const [totalStudents, setTotalStudents] = useState<number>(28);
   const [accountedStudents, setAccountedStudents] = useState<number>(28);
 
@@ -217,8 +188,8 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
       accentBorderClass: 'border-[#0284C7]',
       accentBadgeClass: 'bg-sky-50 text-[#0284C7] border-sky-200',
       buttonGradient: 'linear-gradient(135deg, #0284C7 0%, #0D9488 100%)',
-      completeBtnEn: 'Complete Stage 1 · Go to Stage 2 (Move Away from Glass)',
-      completeBtnAr: 'إتمام المرحلة ١ · الانتقال للمرحلة ٢ (الابتعاد عن النوافذ)',
+      completeBtnEn: 'Complete Stage 1 · Continue to Stage 2',
+      completeBtnAr: 'إتمام المرحلة ١ · الانتقال إلى المرحلة ٢',
       headerIcon: <HeartPulse className="w-6 h-6 text-[#0284C7]" aria-hidden="true" />,
       headerIconBoxClass: 'bg-sky-50 border-sky-200',
       points: [
@@ -270,8 +241,8 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
       accentBorderClass: 'border-[#EF4444]',
       accentBadgeClass: 'bg-red-50 text-[#EF4444] border-red-200',
       buttonGradient: 'linear-gradient(135deg, #EF4444 0%, #F97316 100%)',
-      completeBtnEn: 'Complete Stage 2 · Go to Stage 3 (Drop, Cover & Hold)',
-      completeBtnAr: 'إتمام المرحلة ٢ · الانتقال للمرحلة ٣ (الاحتماء تحت الطاولة)',
+      completeBtnEn: 'Complete Stage 2 · Continue to Stage 3',
+      completeBtnAr: 'إتمام المرحلة ٢ · الانتقال إلى المرحلة ٣',
       headerIcon: <AlertTriangle className="w-6 h-6 text-[#EF4444]" aria-hidden="true" />,
       headerIconBoxClass: 'bg-red-50 border-red-200',
       points: [
@@ -323,8 +294,8 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
       accentBorderClass: 'border-[#F59E0B]',
       accentBadgeClass: 'bg-amber-50 text-[#D97706] border-amber-200',
       buttonGradient: 'linear-gradient(135deg, #D97706 0%, #EA580C 100%)',
-      completeBtnEn: 'Complete Stage 3 · Go to Stage 4 (Calm Yourself)',
-      completeBtnAr: 'إتمام المرحلة ٣ · الانتقال للمرحلة ٤ (هدّئ نفسك ٤-٤-٨)',
+      completeBtnEn: 'Complete Stage 3 · Continue to Stage 4',
+      completeBtnAr: 'إتمام المرحلة ٣ · الانتقال إلى المرحلة ٤',
       headerIcon: <Shield className="w-6 h-6 text-[#D97706]" aria-hidden="true" />,
       headerIconBoxClass: 'bg-amber-50 border-amber-200',
       points: [
@@ -376,8 +347,8 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
       accentBorderClass: 'border-[#0D9488]',
       accentBadgeClass: 'bg-teal-50 text-[#0D9488] border-teal-200',
       buttonGradient: 'linear-gradient(135deg, #0D9488 0%, #059669 100%)',
-      completeBtnEn: 'Complete Stage 4 · Go to Stage 5 (Evacuation When Required)',
-      completeBtnAr: 'إتمام المرحلة ٤ · الانتقال للمرحلة ٥ (الإخلاء عند الحاجة)',
+      completeBtnEn: 'Complete Stage 4 · Continue to Stage 5',
+      completeBtnAr: 'إتمام المرحلة ٤ · الانتقال إلى المرحلة ٥',
       headerIcon: <Wind className="w-6 h-6 text-[#0D9488]" aria-hidden="true" />,
       headerIconBoxClass: 'bg-teal-50 border-teal-200',
       points: [
@@ -429,8 +400,8 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
       accentBorderClass: 'border-[#10B981]',
       accentBadgeClass: 'bg-emerald-50 text-[#059669] border-emerald-200',
       buttonGradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-      completeBtnEn: 'Complete Stage 5 · Finish Emergency Drill',
-      completeBtnAr: 'إتمام المرحلة ٥ · إنهاء تمرين الطوارئ بنجاح',
+      completeBtnEn: 'Complete Stage 5 · Finish Evacuation Drill',
+      completeBtnAr: 'إتمام المرحلة ٥ · إنهاء تمرين الإخلاء',
       headerIcon: <MapPin className="w-6 h-6 text-[#059669]" aria-hidden="true" />,
       headerIconBoxClass: 'bg-emerald-50 border-emerald-200',
       points: [
@@ -506,7 +477,7 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
     setElapsedSeconds(0);
     setStageTimes([null, null, null, null, null]);
     setCurrentStageIndex(0);
-    setStage5PhotoIndex(0);
+    setEvacFilter('all');
     setBreathingCycleSeconds(0);
     setIsCompleted(false);
     if (sirenVideoRef.current) {
@@ -821,38 +792,12 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
              ===================================================================== */}
           <div className="lg:col-span-7 flex flex-col">
             <div
-              className={`bg-white rounded-3xl p-4 sm:p-5 border-2 ${activeStage.accentBorderClass} shadow-md flex-1 flex flex-col justify-between gap-4`}
+              className={`bg-white rounded-3xl p-4 sm:p-5 border-2 ${activeStage.accentBorderClass} shadow-md flex-1 flex flex-col justify-start gap-4`}
             >
-              {/* Top Media Header Bar */}
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div className="flex items-center gap-2.5">
-                  <span
-                    className={`px-3 py-1 rounded-xl text-xs font-mono font-extrabold border ${activeStage.accentBadgeClass}`}
-                  >
-                    {isAr
-                      ? `العرض المرئي · المرحلة ${activeStage.stageNumber} من 5`
-                      : `STAGE ${activeStage.stageNumber} OF 5 · VISUAL GUIDE`}
-                  </span>
-                  <span className="font-display text-sm sm:text-base font-extrabold text-slate-900">
-                    {isAr ? activeStage.titleAr : activeStage.titleEn}
-                  </span>
-                </div>
-
-                {(activeStage.stageNumber === 1 || activeStage.stageNumber === 3) && (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-900 text-white text-xs font-bold">
-                    <Lock className="w-3.5 h-3.5 text-[#F59E0B]" aria-hidden="true" />
-                    <VolumeX className="w-3.5 h-3.5 text-[#EF4444]" aria-hidden="true" />
-                    <span>
-                      {isAr ? 'فيديو صامت مستمر (مغلق الصوت)' : 'Continuous Loop · Audio Locked Muted'}
-                    </span>
-                  </span>
-                )}
-              </div>
-
-              {/* STAGE 1 BIG MEDIA: /videos/Instruction Following.mp4 (Continuous Loop, Strictly Muted, Cannot Unmute) */}
+              {/* STAGE 1 BIG MEDIA: /videos/Instruction Following.mp4 (Starts at Top, Continuous Loop, Strictly Muted) */}
               {activeStage.stageNumber === 1 && (
-                <div className="space-y-4 flex-1 flex flex-col justify-between">
-                  <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-200 aspect-video w-full shadow-inner">
+                <div className="space-y-4 flex flex-col">
+                  <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-200 aspect-[16/9] w-full shadow-inner">
                     <video
                       key="stage-1-instruction-following-video"
                       ref={stageMutedVideoRef}
@@ -868,8 +813,24 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                       data-testid="stage1-muted-video"
                       className="w-full h-full object-cover pointer-events-none select-none"
                     />
+                    {/* Top Overlay Badge & Audio Locked Indicator */}
+                    <div className="absolute top-3 left-3 right-3 flex flex-wrap items-center justify-between gap-2 pointer-events-none z-10">
+                      <span className="px-3 py-1 rounded-xl bg-slate-950/85 text-white text-xs font-mono font-extrabold backdrop-blur-xs border border-white/20">
+                        {isAr
+                          ? 'المرحلة ١ من ٥ · العرض المرئي'
+                          : 'STAGE 1 OF 5 · VISUAL GUIDE'}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-950/90 text-white text-xs font-bold border border-white/20 backdrop-blur-xs">
+                        <Lock className="w-3.5 h-3.5 text-[#F59E0B]" aria-hidden="true" />
+                        <VolumeX className="w-3.5 h-3.5 text-[#EF4444]" aria-hidden="true" />
+                        <span>
+                          {isAr ? 'فيديو صامت مستمر (مغلق الصوت)' : 'Continuous Loop · Audio Locked Muted'}
+                        </span>
+                      </span>
+                    </div>
+
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
-                      <span className="px-3 py-1.5 rounded-xl bg-slate-950/80 text-white text-xs font-bold backdrop-blur-xs">
+                      <span className="px-3.5 py-2 rounded-xl bg-slate-950/85 text-white text-xs sm:text-sm font-extrabold backdrop-blur-xs">
                         {isAr
                           ? '٠١. التوقف الفوري عن النشاط والاستماع بتركيز للمعلم'
                           : '01. Stop Activity & Listen Carefully to Teacher Instructions'}
@@ -883,24 +844,47 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                     </div>
                   </div>
 
-                  {/* Visual Reinforcement Strip below Stage 1 video */}
-                  <div className="grid grid-cols-3 gap-3">
-                    <div className="p-3 rounded-2xl bg-sky-50/80 border border-sky-200 flex items-center gap-2.5">
-                      <HeartPulse className="w-5 h-5 text-[#0284C7] shrink-0" />
-                      <div className="text-xs font-extrabold text-slate-900">
-                        {isAr ? 'توقف عن الدرس فوراً' : 'Stop Activity Now'}
+                  {/* Enriched & Enlarged Visual Reinforcement Strip below Stage 1 video */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-1">
+                    <div className="p-4 sm:p-5 rounded-2xl bg-sky-50/90 border-2 border-sky-200 flex flex-col justify-between gap-2 shadow-xs">
+                      <div className="w-10 h-10 rounded-xl bg-white border border-sky-200 flex items-center justify-center shrink-0">
+                        <HeartPulse className="w-6 h-6 text-[#0284C7]" />
+                      </div>
+                      <div>
+                        <div className="text-sm sm:text-base font-extrabold text-slate-900">
+                          {isAr ? 'توقف عن الدرس فوراً' : 'Stop Activity Now'}
+                        </div>
+                        <div className="text-xs sm:text-sm text-slate-600 font-medium mt-1 leading-snug">
+                          {isAr ? 'ضع الأقلام والكتب جانباً فور سماع الإنذار' : 'Put down pens & books right away'}
+                        </div>
                       </div>
                     </div>
-                    <div className="p-3 rounded-2xl bg-teal-50/80 border border-teal-200 flex items-center gap-2.5">
-                      <VolumeX className="w-5 h-5 text-[#0D9488] shrink-0" />
-                      <div className="text-xs font-extrabold text-slate-900">
-                        {isAr ? 'التزم الصمت التام' : 'Complete Silence'}
+
+                    <div className="p-4 sm:p-5 rounded-2xl bg-teal-50/90 border-2 border-teal-200 flex flex-col justify-between gap-2 shadow-xs">
+                      <div className="w-10 h-10 rounded-xl bg-white border border-teal-200 flex items-center justify-center shrink-0">
+                        <VolumeX className="w-6 h-6 text-[#0D9488]" />
+                      </div>
+                      <div>
+                        <div className="text-sm sm:text-base font-extrabold text-slate-900">
+                          {isAr ? 'التزم الصمت التام' : 'Complete Silence'}
+                        </div>
+                        <div className="text-xs sm:text-sm text-slate-600 font-medium mt-1 leading-snug">
+                          {isAr ? 'الصمت يساعد الجميع على سماع صافرة الإنذار' : 'Maintain total quiet so all hear instructions'}
+                        </div>
                       </div>
                     </div>
-                    <div className="p-3 rounded-2xl bg-emerald-50/80 border border-emerald-200 flex items-center gap-2.5">
-                      <UserCheck className="w-5 h-5 text-[#059669] shrink-0" />
-                      <div className="text-xs font-extrabold text-slate-900">
-                        {isAr ? 'انتبه لتوجيه المعلم' : 'Eyes on Teacher'}
+
+                    <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50/90 border-2 border-emerald-200 flex flex-col justify-between gap-2 shadow-xs">
+                      <div className="w-10 h-10 rounded-xl bg-white border border-emerald-200 flex items-center justify-center shrink-0">
+                        <UserCheck className="w-6 h-6 text-[#059669]" />
+                      </div>
+                      <div>
+                        <div className="text-sm sm:text-base font-extrabold text-slate-900">
+                          {isAr ? 'انتبه لتوجيه المعلم' : 'Eyes on Teacher'}
+                        </div>
+                        <div className="text-xs sm:text-sm text-slate-600 font-medium mt-1 leading-snug">
+                          {isAr ? 'استمع بدقة للتوجيه التالي دون هلع' : 'Follow teacher step-by-step with calm focus'}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -909,8 +893,8 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
 
               {/* STAGE 2 BIG MEDIA: /images/Glass Safety.jpg */}
               {activeStage.stageNumber === 2 && (
-                <div className="space-y-4 flex-1 flex flex-col justify-between">
-                  <div className="relative rounded-2xl overflow-hidden bg-slate-900 border border-red-200 aspect-video w-full shadow-inner">
+                <div className="space-y-4 flex flex-col">
+                  <div className="relative rounded-2xl overflow-hidden bg-slate-900 border border-red-200 aspect-[16/9] w-full shadow-inner">
                     <img
                       src="/images/Glass Safety.jpg"
                       alt={
@@ -922,7 +906,12 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                       data-testid="stage2-glass-safety-img"
                       className="w-full h-full object-contain bg-slate-950"
                     />
-                    <div className="absolute bottom-3 right-3 pointer-events-none">
+                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
+                      <span className="px-3.5 py-2 rounded-xl bg-slate-950/85 text-white text-xs sm:text-sm font-extrabold backdrop-blur-xs">
+                        {isAr
+                          ? '٠٢. الابتعاد التام عن النوافذ والواجهات الزجاجية'
+                          : '02. Move Away from Windows & Exterior Glass'}
+                      </span>
                       <span
                         dir="ltr"
                         className="px-2.5 py-1 rounded-lg bg-slate-950/80 text-white font-mono text-[11px]"
@@ -932,40 +921,40 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                     </div>
                   </div>
 
-                  {/* Key Visual Callouts matching Glass Safety.jpg */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="p-3.5 rounded-2xl bg-red-50/80 border border-red-200 flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-white border border-red-200 flex items-center justify-center shrink-0">
-                        <WindowClearanceIcon className="w-5 h-5 text-[#EF4444]" />
+                  {/* Enlarged Key Visual Callouts matching Glass Safety.jpg on Desktop */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
+                    <div className="p-4 sm:p-5 rounded-2xl bg-red-50/90 border-2 border-red-200 flex items-start gap-4 shadow-xs">
+                      <div className="w-12 h-12 rounded-2xl bg-white border border-red-200 flex items-center justify-center shrink-0">
+                        <WindowClearanceIcon className="w-6 h-6 text-[#EF4444]" />
                       </div>
                       <div>
-                        <div className="text-xs font-extrabold text-slate-900">
+                        <div className="text-sm sm:text-base font-extrabold text-slate-900">
                           {isAr
-                            ? '١. حافظ على مسافة آمنة (متر واحد / ٣ أقدام)'
-                            : '1. Maintain a Safe Distance (At least 1m / 3ft back)'}
+                            ? '١. مسافة آمنة (متر واحد / ٣ أقدام)'
+                            : '1. Safe Distance: At Least 1m (3ft) Back'}
                         </div>
-                        <div className="text-[11px] font-medium text-slate-600">
+                        <div className="text-xs sm:text-sm font-medium text-slate-700 mt-1 leading-relaxed">
                           {isAr
-                            ? 'ابتعد فوراً عن النوافذ الخارجية والواجهات الزجاجية'
-                            : 'Step clear of all exterior windows and glass walls'}
+                            ? 'ابتعد فوراً عن جميع النوافذ والواجهات الزجاجية الخارجية والأسقف المعلقة.'
+                            : 'Step completely clear of all exterior windows, glass walls, and hanging fixtures.'}
                         </div>
                       </div>
                     </div>
 
-                    <div className="p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200 flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-white border border-amber-200 flex items-center justify-center shrink-0">
-                        <AlertTriangle className="w-5 h-5 text-[#D97706]" />
+                    <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/90 border-2 border-amber-200 flex items-start gap-4 shadow-xs">
+                      <div className="w-12 h-12 rounded-2xl bg-white border border-amber-200 flex items-center justify-center shrink-0">
+                        <AlertTriangle className="w-6 h-6 text-[#D97706]" />
                       </div>
                       <div>
-                        <div className="text-xs font-extrabold text-slate-900">
+                        <div className="text-sm sm:text-base font-extrabold text-slate-900">
                           {isAr
                             ? '٢. يمنع اللمس أو الاستناد على الزجاج'
                             : '2. Do Not Touch, Lean, or Play Near Glass'}
                         </div>
-                        <div className="text-[11px] font-medium text-slate-600">
+                        <div className="text-xs sm:text-sm font-medium text-slate-700 mt-1 leading-relaxed">
                           {isAr
-                            ? 'للوقاية من خطر السقوط أو انكسار الزجاج'
-                            : 'Prevents falls, injuries, and glass breakage hazards'}
+                            ? 'للوقاية من خطر السقوط أو كسر الزجاج والتناثر أثناء الإنذار الطارئ.'
+                            : 'Strictly prohibited to prevent falls, shattering, or accidental glass breakage.'}
                         </div>
                       </div>
                     </div>
@@ -973,10 +962,10 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                 </div>
               )}
 
-              {/* STAGE 3 BIG MEDIA: /videos/Hiding Under Table.mp4 (Continuous Loop, Strictly Muted, Cannot Unmute) */}
+              {/* STAGE 3 BIG MEDIA: /videos/Hiding Under Table.mp4 (Starts at Top, Continuous Loop, Strictly Muted) */}
               {activeStage.stageNumber === 3 && (
-                <div className="space-y-4 flex-1 flex flex-col justify-between">
-                  <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-amber-200 aspect-video w-full shadow-inner">
+                <div className="space-y-4 flex flex-col">
+                  <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-amber-200 aspect-[16/9] w-full shadow-inner">
                     <video
                       key="stage-3-hiding-under-table-video"
                       ref={stageMutedVideoRef}
@@ -992,8 +981,24 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                       data-testid="stage3-muted-video"
                       className="w-full h-full object-cover pointer-events-none select-none"
                     />
+                    {/* Top Overlay Badge & Audio Locked Indicator */}
+                    <div className="absolute top-3 left-3 right-3 flex flex-wrap items-center justify-between gap-2 pointer-events-none z-10">
+                      <span className="px-3 py-1 rounded-xl bg-slate-950/85 text-white text-xs font-mono font-extrabold backdrop-blur-xs border border-white/20">
+                        {isAr
+                          ? 'المرحلة ٣ من ٥ · العرض المرئي'
+                          : 'STAGE 3 OF 5 · VISUAL GUIDE'}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-950/90 text-white text-xs font-bold border border-white/20 backdrop-blur-xs">
+                        <Lock className="w-3.5 h-3.5 text-[#F59E0B]" aria-hidden="true" />
+                        <VolumeX className="w-3.5 h-3.5 text-[#EF4444]" aria-hidden="true" />
+                        <span>
+                          {isAr ? 'فيديو صامت مستمر (مغلق الصوت)' : 'Continuous Loop · Audio Locked Muted'}
+                        </span>
+                      </span>
+                    </div>
+
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
-                      <span className="px-3 py-1.5 rounded-xl bg-slate-950/80 text-white text-xs font-bold backdrop-blur-xs">
+                      <span className="px-3.5 py-2 rounded-xl bg-slate-950/85 text-white text-xs sm:text-sm font-extrabold backdrop-blur-xs">
                         {isAr
                           ? '٠٣. انزل تحت الطاولة واحمِ الرأس والرقبة بكلتا اليدين'
                           : '03. Drop Underneath Your Desk & Protect Head and Neck'}
@@ -1007,24 +1012,47 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                     </div>
                   </div>
 
-                  {/* 3-Step Posture Strip */}
-                  <div className="grid grid-cols-3 gap-3">
-                    <div className="p-3 rounded-2xl bg-amber-50/80 border border-amber-200 flex items-center gap-2.5">
-                      <ArrowDownRight className="w-5 h-5 text-[#D97706] shrink-0" />
-                      <div className="text-xs font-extrabold text-slate-900">
-                        {isAr ? '١. انزل على ركبتيك' : '1. DROP to Knees'}
+                  {/* Enlarged 3-Step Posture Strip on Desktop */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-1">
+                    <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/90 border-2 border-amber-200 flex flex-col justify-between gap-2 shadow-xs">
+                      <div className="w-10 h-10 rounded-xl bg-white border border-amber-200 flex items-center justify-center shrink-0">
+                        <ArrowDownRight className="w-6 h-6 text-[#D97706]" />
+                      </div>
+                      <div>
+                        <div className="text-sm sm:text-base font-extrabold text-slate-900">
+                          {isAr ? '١. انزل (DROP)' : '1. DROP to Knees'}
+                        </div>
+                        <div className="text-xs sm:text-sm text-slate-600 font-medium mt-1 leading-snug">
+                          {isAr ? 'انزل على ركبتيك ويديك فوراً للحفاظ على ثباتك' : 'Drop onto hands and knees beside your desk'}
+                        </div>
                       </div>
                     </div>
-                    <div className="p-3 rounded-2xl bg-orange-50/80 border border-orange-200 flex items-center gap-2.5">
-                      <DeskShelterIcon className="w-5 h-5 text-[#EA580C] shrink-0" />
-                      <div className="text-xs font-extrabold text-slate-900">
-                        {isAr ? '٢. احتمِ تحت الطاولة' : '2. COVER Under Desk'}
+
+                    <div className="p-4 sm:p-5 rounded-2xl bg-orange-50/90 border-2 border-orange-200 flex flex-col justify-between gap-2 shadow-xs">
+                      <div className="w-10 h-10 rounded-xl bg-white border border-orange-200 flex items-center justify-center shrink-0">
+                        <DeskShelterIcon className="w-6 h-6 text-[#EA580C]" />
+                      </div>
+                      <div>
+                        <div className="text-sm sm:text-base font-extrabold text-slate-900">
+                          {isAr ? '٢. احتمِ (COVER)' : '2. COVER Under Desk'}
+                        </div>
+                        <div className="text-xs sm:text-sm text-slate-600 font-medium mt-1 leading-snug">
+                          {isAr ? 'ادخل بالكامل تحت الطاولة لحماية جسمك' : 'Shield head, torso and body completely beneath desk'}
+                        </div>
                       </div>
                     </div>
-                    <div className="p-3 rounded-2xl bg-red-50/80 border border-red-200 flex items-center gap-2.5">
-                      <HeadNeckPostureIcon className="w-5 h-5 text-[#DC2626] shrink-0" />
-                      <div className="text-xs font-extrabold text-slate-900">
-                        {isAr ? '٣. احمِ الرأس والرقبة' : '3. HOLD & Shield Neck'}
+
+                    <div className="p-4 sm:p-5 rounded-2xl bg-red-50/90 border-2 border-red-200 flex flex-col justify-between gap-2 shadow-xs">
+                      <div className="w-10 h-10 rounded-xl bg-white border border-red-200 flex items-center justify-center shrink-0">
+                        <HeadNeckPostureIcon className="w-6 h-6 text-[#DC2626]" />
+                      </div>
+                      <div>
+                        <div className="text-sm sm:text-base font-extrabold text-slate-900">
+                          {isAr ? '٣. تمسّك (HOLD)' : '3. HOLD & Shield Neck'}
+                        </div>
+                        <div className="text-xs sm:text-sm text-slate-600 font-medium mt-1 leading-snug">
+                          {isAr ? 'شبّك اليدين خلف الرأس وأمسك بقائمة الطاولة' : 'Interlock hands over neck & grip desk leg firmly'}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1033,8 +1061,8 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
 
               {/* STAGE 4 BIG MEDIA: /images/Breathing technique.jpg + Live 4-4-8 Pacer */}
               {activeStage.stageNumber === 4 && (
-                <div className="space-y-4 flex-1 flex flex-col justify-between">
-                  <div className="relative rounded-2xl overflow-hidden bg-white border border-teal-200 aspect-video w-full shadow-inner">
+                <div className="space-y-4 flex flex-col">
+                  <div className="relative rounded-2xl overflow-hidden bg-white border border-teal-200 aspect-[16/9] w-full shadow-inner">
                     <img
                       src="/images/Breathing technique.jpg"
                       alt={
@@ -1046,7 +1074,12 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                       data-testid="stage4-breathing-img"
                       className="w-full h-full object-contain bg-white"
                     />
-                    <div className="absolute bottom-3 right-3 pointer-events-none">
+                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
+                      <span className="px-3.5 py-2 rounded-xl bg-slate-950/85 text-white text-xs sm:text-sm font-extrabold backdrop-blur-xs">
+                        {isAr
+                          ? '٠٤. تهدئة النفس وتطبيق تقنية التنفس ٤-٤-٨'
+                          : '04. Calm Yourself · 4-4-8 Calming Breathing Technique'}
+                      </span>
                       <span
                         dir="ltr"
                         className="px-2.5 py-1 rounded-lg bg-slate-950/75 text-white font-mono text-[11px]"
@@ -1056,24 +1089,25 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                     </div>
                   </div>
 
-                  {/* Interactive Live 4-4-8 Breathing Rhythm Bar */}
-                  <div className="p-3.5 rounded-2xl bg-teal-50/90 border border-teal-200 flex flex-wrap items-center justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-11 h-11 rounded-2xl bg-[#0D9488] text-white flex flex-col items-center justify-center font-mono font-extrabold shrink-0 shadow-xs">
-                        <span dir="ltr" className="text-sm leading-none">
+                  {/* Enlarged Interactive Live 4-4-8 Breathing Rhythm Bar on Desktop */}
+                  <div className="p-4 sm:p-6 rounded-2xl bg-teal-50/95 border-2 border-teal-200 flex flex-wrap items-center justify-between gap-4 shadow-xs">
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 rounded-2xl bg-[#0D9488] text-white flex flex-col items-center justify-center font-mono font-extrabold shrink-0 shadow-md shadow-teal-700/20">
+                        <span dir="ltr" className="text-lg sm:text-xl leading-none">
                           {breathingInfo.secondsRemainingInPhase}s
                         </span>
+                        <span className="text-[10px] opacity-80 mt-0.5">4-4-8</span>
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="text-xs sm:text-sm font-extrabold text-slate-900">
+                          <span className="text-base sm:text-lg font-extrabold text-slate-900">
                             {isAr ? breathingInfo.phaseLabelAr : breathingInfo.phaseLabelEn}
                           </span>
-                          <span className="text-[11px] font-mono font-bold text-[#0D9488]">
-                            (4-4-8)
+                          <span className="px-2 py-0.5 rounded-md bg-teal-100 text-[#0D9488] font-mono text-xs font-bold">
+                            {isAr ? 'دليل أزمات عطاء' : 'Ataa 4-4-8 Rhythm'}
                           </span>
                         </div>
-                        <p className="text-xs text-slate-700 font-medium">
+                        <p className="text-xs sm:text-sm text-slate-700 font-semibold mt-1">
                           {isAr ? breathingInfo.instructionAr : breathingInfo.instructionEn}
                         </p>
                       </div>
@@ -1082,7 +1116,7 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                     <button
                       type="button"
                       onClick={() => setIsBreathingPaused((prev) => !prev)}
-                      className="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 border border-teal-300 text-xs font-bold text-[#0D9488] transition-colors cursor-pointer shrink-0"
+                      className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 border-2 border-teal-300 text-xs sm:text-sm font-extrabold text-[#0D9488] transition-colors cursor-pointer shrink-0 shadow-xs"
                     >
                       {isBreathingPaused
                         ? isAr
@@ -1096,105 +1130,151 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                 </div>
               )}
 
-              {/* STAGE 5 BIG MEDIA: /images/Student In Line.jpg + Boys & Girls Assembly Point Pictures */}
+              {/* STAGE 5 BIG MEDIA: /images/Student In Line.jpg on Top + Grade Evacuation Plan at Bottom */}
               {activeStage.stageNumber === 5 && (
-                <div className="space-y-3.5 flex-1 flex flex-col justify-between">
-                  {/* Main Large Viewer (Defaults to /images/Student In Line.jpg) */}
-                  <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-emerald-200 aspect-video w-full shadow-inner">
+                <div className="space-y-4 flex flex-col">
+                  {/* Top: Student In Line Image (Assembly point 3 images removed as requested) */}
+                  <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-emerald-200 aspect-[16/9] w-full shadow-inner">
                     <img
-                      src={STAGE5_GALLERY_PHOTOS[stage5PhotoIndex].src}
+                      src="/images/Student In Line.jpg"
                       alt={
                         isAr
-                          ? STAGE5_GALLERY_PHOTOS[stage5PhotoIndex].titleAr
-                          : STAGE5_GALLERY_PHOTOS[stage5PhotoIndex].titleEn
+                          ? 'طلاب يسيرون في صف فردي منتظم بإشراف المعلم'
+                          : 'Students Moving in Proper Single-File Line'
                       }
                       referrerPolicy="no-referrer"
-                      data-testid="stage5-main-img"
+                      data-testid="stage5-student-in-line-img"
                       className="w-full h-full object-cover"
                     />
-
-                    {/* Prev / Next Navigation Buttons */}
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setStage5PhotoIndex(
-                          (prev) =>
-                            (prev - 1 + STAGE5_GALLERY_PHOTOS.length) %
-                            STAGE5_GALLERY_PHOTOS.length
-                        )
-                      }
-                      aria-label={isAr ? 'الصورة السابقة' : 'Previous Stage 5 photo'}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-950/75 hover:bg-slate-950 text-white flex items-center justify-center transition-colors cursor-pointer"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setStage5PhotoIndex(
-                          (prev) => (prev + 1) % STAGE5_GALLERY_PHOTOS.length
-                        )
-                      }
-                      aria-label={isAr ? 'الصورة التالية' : 'Next Stage 5 photo'}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-slate-950/75 hover:bg-slate-950 text-white flex items-center justify-center transition-colors cursor-pointer"
-                    >
-                      <ChevronRight className="w-5 h-5" />
-                    </button>
-
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent p-3.5 flex items-end justify-between gap-2 pointer-events-none">
                       <div>
                         <span className="inline-block px-2.5 py-0.5 rounded-md bg-[#10B981] text-white text-[10px] font-extrabold mb-1">
-                          {isAr
-                            ? STAGE5_GALLERY_PHOTOS[stage5PhotoIndex].badgeAr
-                            : STAGE5_GALLERY_PHOTOS[stage5PhotoIndex].badgeEn}
+                          {isAr ? 'صف فردي منتظم · استخدام الدرج فقط' : 'Orderly Line · Stairs Only'}
                         </span>
                         <div className="text-xs sm:text-sm font-extrabold text-white">
                           {isAr
-                            ? STAGE5_GALLERY_PHOTOS[stage5PhotoIndex].titleAr
-                            : STAGE5_GALLERY_PHOTOS[stage5PhotoIndex].titleEn}
+                            ? 'السير في صف منتظم خلف المعلم دون تدافع أو ركض'
+                            : 'Orderly Single-File Movement to Designated Destinations'}
                         </div>
                       </div>
                       <span
                         dir="ltr"
                         className="px-2.5 py-1 rounded-lg bg-slate-950/80 text-slate-200 font-mono text-[11px]"
                       >
-                        {STAGE5_GALLERY_PHOTOS[stage5PhotoIndex].src}
+                        /images/Student In Line.jpg
                       </span>
                     </div>
                   </div>
 
-                  {/* All 4 Stage 5 Photos Visible Together (Student In Line + Boys 1 + Boys 2 + Girls Assembly Points) */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                    {STAGE5_GALLERY_PHOTOS.map((item, idx) => {
-                      const isSelected = idx === stage5PhotoIndex;
-                      return (
+                  {/* Bottom Section: Grade-by-Grade Evacuation Destination Plan (Enlarged on Desktop) */}
+                  <div className="bg-[#FAF8F5] border-2 border-emerald-200 rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-xs">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-5 h-5 text-[#059669]" />
+                        <span className="text-sm sm:text-base font-extrabold text-slate-900">
+                          {isAr ? 'خطة إخلاء المراحل والصفوف الدراسية' : 'Grade Evacuation Destinations Plan'}
+                        </span>
+                      </div>
+
+                      {/* Department Filter Pills */}
+                      <div className="flex flex-wrap items-center gap-1.5">
                         <button
-                          key={item.src}
                           type="button"
-                          onClick={() => setStage5PhotoIndex(idx)}
-                          data-testid={`stage5-thumb-${idx}`}
-                          className={`group rounded-2xl overflow-hidden border-2 text-start transition-all cursor-pointer bg-slate-50 ${
-                            isSelected
-                              ? 'border-[#10B981] ring-2 ring-[#10B981]/30 shadow-xs'
-                              : 'border-slate-200 hover:border-emerald-300'
+                          onClick={() => setEvacFilter('all')}
+                          className={`px-3 py-1 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
+                            evacFilter === 'all'
+                              ? 'bg-[#059669] text-white'
+                              : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
                           }`}
                         >
-                          <div className="aspect-[16/10] w-full overflow-hidden bg-slate-900">
-                            <img
-                              src={item.src}
-                              alt={isAr ? item.titleAr : item.titleEn}
-                              referrerPolicy="no-referrer"
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                            />
-                          </div>
-                          <div className="p-2">
-                            <div className="text-[11px] font-extrabold text-slate-900 truncate">
-                              {isAr ? item.badgeAr : item.badgeEn}
-                            </div>
-                          </div>
+                          {isAr ? 'الكل' : 'All'}
                         </button>
-                      );
-                    })}
+                        <button
+                          type="button"
+                          onClick={() => setEvacFilter('kg')}
+                          className={`px-3 py-1 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
+                            evacFilter === 'kg'
+                              ? 'bg-[#059669] text-white'
+                              : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                          }`}
+                        >
+                          KG
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setEvacFilter('primary')}
+                          className={`px-3 py-1 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
+                            evacFilter === 'primary'
+                              ? 'bg-[#059669] text-white'
+                              : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                          }`}
+                        >
+                          {isAr ? 'الابتدائي' : 'Primary'}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setEvacFilter('girls')}
+                          className={`px-3 py-1 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
+                            evacFilter === 'girls'
+                              ? 'bg-[#059669] text-white'
+                              : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                          }`}
+                        >
+                          {isAr ? 'بنات' : 'Girls'}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setEvacFilter('boys')}
+                          className={`px-3 py-1 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
+                            evacFilter === 'boys'
+                              ? 'bg-[#059669] text-white'
+                              : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                          }`}
+                        >
+                          {isAr ? 'بنين' : 'Boys'}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Scrollable, Clean Evacuation List (Enlarged on Desktop) */}
+                    <div className="max-h-64 sm:max-h-72 overflow-y-auto space-y-2.5 pr-1">
+                      {GRADE_EVACUATION_PLAN.filter((item) => {
+                        if (evacFilter === 'all') return true;
+                        if (evacFilter === 'kg') return item.id.startsWith('kg');
+                        if (evacFilter === 'primary') return item.id.startsWith('primary');
+                        if (evacFilter === 'girls') return item.id.startsWith('girls');
+                        if (evacFilter === 'boys') return item.id.startsWith('boys');
+                        return true;
+                      }).map((item) => (
+                        <div
+                          key={item.id}
+                          className="p-3 sm:p-3.5 rounded-xl bg-white border border-slate-200/90 text-xs sm:text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs hover:border-emerald-300 transition-colors"
+                        >
+                          <div className="space-y-1 min-w-0">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="font-extrabold text-sm sm:text-base text-[#D97706]">
+                                {isAr ? item.gradeGroupAr : item.gradeGroupEn}
+                              </span>
+                              <span className="text-xs text-slate-500 font-bold px-2 py-0.5 rounded bg-slate-100">
+                                {isAr ? item.departmentAr : item.departmentEn}
+                              </span>
+                            </div>
+                            {item.subLocationEn && (
+                              <div className="text-xs sm:text-sm font-medium text-slate-700">
+                                📍 {isAr ? item.subLocationAr : item.subLocationEn}
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="shrink-0 pt-1 sm:pt-0">
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 text-[#047857] font-extrabold text-xs sm:text-sm border border-emerald-200">
+                              <MapPin className="w-3.5 h-3.5 text-[#059669] shrink-0" />
+                              <span>{isAr ? item.evacuationLocationAr : item.evacuationLocationEn}</span>
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )}
@@ -1318,14 +1398,14 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                 )}
               </div>
 
-              {/* Stage Navigation & Completion CTA Buttons */}
-              <div className="pt-2 border-t border-slate-100 flex items-center gap-2.5">
+              {/* Stage Navigation & Completion CTA Buttons (Fixed for Mobile & Desktop) */}
+              <div className="pt-2 border-t border-slate-100 flex flex-wrap sm:flex-nowrap items-center gap-2">
                 {currentStageIndex > 0 && (
                   <button
                     type="button"
                     onClick={() => setCurrentStageIndex((prev) => Math.max(0, prev - 1))}
                     data-testid="prev-stage-btn"
-                    className="px-3.5 py-3.5 rounded-2xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs font-extrabold text-slate-700 transition-colors shrink-0 cursor-pointer"
+                    className="w-full sm:w-auto px-4 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs font-extrabold text-slate-700 transition-colors shrink-0 cursor-pointer"
                   >
                     {isAr ? 'السابق' : 'Back'}
                   </button>
@@ -1335,12 +1415,12 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                   type="button"
                   onClick={handleCompleteCurrentStage}
                   data-testid="complete-stage-btn"
-                  className="flex-1 py-3.5 px-4 rounded-2xl font-display text-xs sm:text-sm font-extrabold text-white shadow-md transition-all hover:brightness-105 flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full flex-1 py-3 px-3.5 sm:px-4 rounded-2xl font-display text-xs sm:text-sm font-extrabold text-white shadow-md transition-all hover:brightness-105 flex items-center justify-center gap-2 min-w-0 cursor-pointer text-center"
                   style={{
                     background: activeStage.buttonGradient,
                   }}
                 >
-                  <CheckCircle2 className="w-5 h-5 shrink-0" aria-hidden="true" />
+                  <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" aria-hidden="true" />
                   <span className="truncate">
                     {isAr ? activeStage.completeBtnAr : activeStage.completeBtnEn}
                   </span>

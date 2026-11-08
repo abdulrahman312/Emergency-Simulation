@@ -21,6 +21,7 @@ export const Header: React.FC<HeaderProps> = ({
     { href: '#scenarios', labelEn: 'Scenarios', labelAr: 'مسارات الطوارئ' },
     { href: '#student-guide', labelEn: 'Student Guide', labelAr: 'دليل المراحل' },
     { href: '#campus-map', labelEn: 'Campus Safe Zones', labelAr: 'خريطة المدرسة' },
+    { href: '#evacuation-plan', labelEn: 'Evacuation Plan', labelAr: 'خطة الإخلاء' },
     { href: '#calming-support', labelEn: 'Calming & Contacts', labelAr: 'التنفس والطوارئ' },
   ];
 

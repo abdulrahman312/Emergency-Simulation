@@ -17,6 +17,7 @@ import {
   AGE_GROUP_GUIDES,
   CAMPUS_GALLERY_ITEMS,
   EMERGENCY_CONTACTS,
+  GRADE_EVACUATION_PLAN,
 } from '../data/portalContent';
 
 test('formatTimeMMSS formats countdown and elapsed seconds accurately', () => {
@@ -94,6 +95,7 @@ test('strict safety constraint: portal content contains zero prohibited vocabula
     AGE_GROUP_GUIDES,
     CAMPUS_GALLERY_ITEMS,
     EMERGENCY_CONTACTS,
+    GRADE_EVACUATION_PLAN,
   });
 
   assert.equal(

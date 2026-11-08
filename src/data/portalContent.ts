@@ -428,3 +428,146 @@ export const EMERGENCY_CONTACTS = [
     nameAr: 'مركز صحة ٩٣٧ (وزارة الصحة)',
   },
 ];
+
+export interface GradeEvacuationPlanItem {
+  id: string;
+  departmentEn: string;
+  departmentAr: string;
+  subLocationEn?: string;
+  subLocationAr?: string;
+  gradeGroupEn: string;
+  gradeGroupAr: string;
+  evacuationRouteEn?: string;
+  evacuationRouteAr?: string;
+  evacuationLocationEn: string;
+  evacuationLocationAr: string;
+}
+
+export const GRADE_EVACUATION_PLAN: GradeEvacuationPlanItem[] = [
+  {
+    id: 'kg-1',
+    departmentEn: 'Kindergarten Department (KG)',
+    departmentAr: 'قسم رياض الأطفال',
+    gradeGroupEn: 'KG1, KG2, and Nursery',
+    gradeGroupAr: 'الروضة ١، الروضة ٢، والحضانة',
+    evacuationLocationEn: 'Breakfast Room – KG Department',
+    evacuationLocationAr: 'غرفة الإفطار – قسم رياض الأطفال',
+  },
+  {
+    id: 'kg-2',
+    departmentEn: 'Kindergarten Department (KG)',
+    departmentAr: 'قسم رياض الأطفال',
+    gradeGroupEn: 'KG3',
+    gradeGroupAr: 'الروضة ٣',
+    evacuationLocationEn: 'Physical Education Room (PE Room)',
+    evacuationLocationAr: 'صالة التربية البدنية (غرفة الرياضة)',
+  },
+  {
+    id: 'primary-1',
+    departmentEn: 'Primary Grades',
+    departmentAr: 'الصفوف الأولية',
+    gradeGroupEn: 'Grades 1, 2, and 3',
+    gradeGroupAr: 'الصفوف ١ و ٢ و ٣',
+    evacuationLocationEn: 'School Auditorium (Exit No. 7)',
+    evacuationLocationAr: 'مسرح المدرسة (مخرج رقم ٧)',
+  },
+  {
+    id: 'girls-g8',
+    departmentEn: "Girls' Section",
+    departmentAr: 'قسم البنات',
+    subLocationEn: 'Designated Building – Lobby 2',
+    subLocationAr: 'المبنى المخصص – البهو ٢',
+    gradeGroupEn: 'Grade 8',
+    gradeGroupAr: 'الصف الثامن',
+    evacuationLocationEn: 'Rooms 26, 27, and 33',
+    evacuationLocationAr: 'الغرف ٢٦، ٢٧، و ٣٣',
+  },
+  {
+    id: 'girls-g9',
+    departmentEn: "Girls' Section",
+    departmentAr: 'قسم البنات',
+    subLocationEn: 'Designated Building – Lobby 2',
+    subLocationAr: 'المبنى المخصص – البهو ٢',
+    gradeGroupEn: 'Grade 9',
+    gradeGroupAr: 'الصف التاسع',
+    evacuationLocationEn: 'Rooms 21 and 23',
+    evacuationLocationAr: 'الغرفتان ٢١ و ٢٣',
+  },
+  {
+    id: 'girls-g11',
+    departmentEn: "Girls' Section",
+    departmentAr: 'قسم البنات',
+    subLocationEn: 'Designated Building – Lobby 1',
+    subLocationAr: 'المبنى المخصص – البهو ١',
+    gradeGroupEn: 'Grade 11',
+    gradeGroupAr: 'الصف الحادي عشر',
+    evacuationLocationEn: 'Library',
+    evacuationLocationAr: 'المكتبة المدرسية',
+  },
+  {
+    id: 'girls-g12',
+    departmentEn: "Girls' Section",
+    departmentAr: 'قسم البنات',
+    subLocationEn: 'Designated Building – Lobby 1',
+    subLocationAr: 'المبنى المخصص – البهو ١',
+    gradeGroupEn: 'Grade 12',
+    gradeGroupAr: 'الصف الثاني عشر',
+    evacuationLocationEn: 'Room 15',
+    evacuationLocationAr: 'الغرفة ١٥',
+  },
+  {
+    id: 'boys-g5',
+    departmentEn: "Boys' Section",
+    departmentAr: 'قسم البنين',
+    subLocationEn: 'Building 3 (Third floor to Ground floor)',
+    subLocationAr: 'المبنى ٣ (من الدور الثالث إلى الدور الأرضي)',
+    gradeGroupEn: 'Grade 5',
+    gradeGroupAr: 'الصف الخامس',
+    evacuationLocationEn: 'Computer Lab and Rooms 17 and 18',
+    evacuationLocationAr: 'معمل الحاسب الآلي والغرفتان ١٧ و ١٨',
+  },
+  {
+    id: 'boys-g6',
+    departmentEn: "Boys' Section",
+    departmentAr: 'قسم البنين',
+    subLocationEn: 'Building 3 (Third floor to Ground floor)',
+    subLocationAr: 'المبنى ٣ (من الدور الثالث إلى الدور الأرضي)',
+    gradeGroupEn: 'Grade 6',
+    gradeGroupAr: 'الصف السادس',
+    evacuationLocationEn: 'Rooms 8, 10, and 13',
+    evacuationLocationAr: 'الغرف ٨، ١٠، و ١٣',
+  },
+  {
+    id: 'boys-g10',
+    departmentEn: "Boys' Section",
+    departmentAr: 'قسم البنين',
+    subLocationEn: 'Building 4',
+    subLocationAr: 'المبنى ٤',
+    gradeGroupEn: 'Grade 10',
+    gradeGroupAr: 'الصف العاشر',
+    evacuationLocationEn: 'Lab 13',
+    evacuationLocationAr: 'المختبر ١٣',
+  },
+  {
+    id: 'boys-g11',
+    departmentEn: "Boys' Section",
+    departmentAr: 'قسم البنين',
+    subLocationEn: 'Building 4',
+    subLocationAr: 'المبنى ٤',
+    gradeGroupEn: 'Grade 11',
+    gradeGroupAr: 'الصف الحادي عشر',
+    evacuationLocationEn: 'Coordinator Room',
+    evacuationLocationAr: 'غرفة المنسق (Coordinator Room)',
+  },
+  {
+    id: 'boys-g12',
+    departmentEn: "Boys' Section",
+    departmentAr: 'قسم البنين',
+    subLocationEn: 'Building 4',
+    subLocationAr: 'المبنى ٤',
+    gradeGroupEn: 'Grade 12',
+    gradeGroupAr: 'الصف الثاني عشر',
+    evacuationLocationEn: 'Computer Lab',
+    evacuationLocationAr: 'معمل الحاسب الآلي',
+  },
+];

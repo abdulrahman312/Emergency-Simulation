@@ -10,6 +10,7 @@ import { MinistryVideoSection } from './components/MinistryVideoSection';
 import { EmergencyScenariosSection } from './components/EmergencyScenariosSection';
 import { AgeGroupGuideSection } from './components/AgeGroupGuideSection';
 import { CampusGallerySection } from './components/CampusGallerySection';
+import { EvacuationPlanSection } from './components/EvacuationPlanSection';
 import { BreathingAndSafetySection } from './components/BreathingAndSafetySection';
 import { EmergencySimulationModal } from './components/EmergencySimulationModal';
 import { Language } from './utils/simulationLogic';
@@ -66,6 +67,8 @@ export default function App() {
         <AgeGroupGuideSection lang={lang} />
 
         <CampusGallerySection lang={lang} />
+
+        <EvacuationPlanSection lang={lang} />
 
         <BreathingAndSafetySection lang={lang} />
       </main>

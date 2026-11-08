@@ -145,11 +145,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 </a>
 
                 <a
-                  href="#campus-map"
+                  href="#evacuation-plan"
                   className="inline-flex items-center gap-2.5 px-5 py-3 rounded-full bg-white/95 hover:bg-white border border-slate-200/90 text-sm font-bold text-slate-800 shadow-sm transition-all whitespace-nowrap shrink-0"
                 >
                   <MapPin className="w-4 h-4 text-[#10B981]" aria-hidden="true" />
-                  <span>{isAr ? 'خريطة المدرسة ونقاط التجمع' : 'Explore Campus Safe Zones'}</span>
+                  <span>{isAr ? 'مواقع الإخلاء' : 'Evacuation Location'}</span>
                 </a>
               </div>
             </div>
