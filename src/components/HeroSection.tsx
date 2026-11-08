@@ -261,8 +261,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
                 {isAr
-                  ? 'يفعّل شاشة الإنذار الكاملة مع فيديو صافرة الإنذار، شريط خفض الصوت لتحدث المعلم، مؤقت الإخلاء (04:00)، ومراحل الاستجابة الثلاث.'
-                  : 'Opens full-screen drill mode with campus siren loop video, teacher voiceover volume controls, 04:00 countdown timer, and 3-stage interactive check-in.'}
+                  ? 'يفعّل شاشة الإنذار الكاملة مع فيديو صافرة الإنذار، شريط خفض الصوت لتحدث المعلم، مؤقت الإخلاء (04:00)، ومراحل الاستجابة الخمس بالتتابع.'
+                  : 'Opens full-screen drill mode with campus siren loop video, teacher voiceover volume controls, 04:00 countdown timer, and 5-stage step-by-step interactive check-in.'}
               </p>
 
               {/* Giant Pulsing CTA Button with Red/Amber Alert Colors */}

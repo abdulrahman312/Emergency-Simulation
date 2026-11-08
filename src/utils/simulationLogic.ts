@@ -36,7 +36,7 @@ export function formatTimeMMSS(totalSeconds: number): string {
 }
 
 /**
- * Computes drill performance metrics and readiness rating from stage timestamps.
+ * Computes drill performance metrics and readiness rating from 3 stage timestamps (legacy helper).
  */
 export function calculateDrillPerformance(
   stage1Time: number | null,
@@ -79,6 +79,58 @@ export function calculateDrillPerformance(
     ratingAr,
     completedStagesCount,
     progressPercent,
+  };
+}
+
+/**
+ * Computes drill performance metrics and readiness rating across all 5 simulation stages.
+ */
+export function calculateFiveStageDrillPerformance(
+  stageTimes: (number | null)[],
+  currentElapsedSeconds: number
+): DrillPerformanceSummary & { stageTimesSeconds: number[] } {
+  const totalStages = 5;
+  const normalized = Array.from({ length: totalStages }, (_, idx) => stageTimes[idx] ?? null);
+  const completedStagesCount = normalized.filter((t) => t !== null).length;
+  const progressPercent = Math.round((completedStagesCount / totalStages) * 100);
+
+  const stageTimesSeconds: number[] = [];
+  let runningMax = 0;
+  for (let i = 0; i < totalStages; i++) {
+    const val = normalized[i] ?? Math.max(runningMax, currentElapsedSeconds);
+    runningMax = Math.max(runningMax, val);
+    stageTimesSeconds.push(val);
+  }
+
+  const ack = stageTimesSeconds[0] ?? currentElapsedSeconds;
+  const follow = stageTimesSeconds[2] ?? Math.max(ack, currentElapsedSeconds);
+  const total = stageTimesSeconds[4] ?? Math.max(follow, currentElapsedSeconds);
+
+  const withinTarget = total <= TARGET_DRILL_SECONDS;
+  const remainingTargetSeconds = Math.max(0, TARGET_DRILL_SECONDS - total);
+
+  let ratingEn = 'Excellent Readiness';
+  let ratingAr = 'متقن - جاهزية ممتازة';
+
+  if (total > TARGET_DRILL_SECONDS) {
+    ratingEn = 'Completed (Above 04:00 Target)';
+    ratingAr = 'مكتمل (تجاوز الزمن المستهدف 04:00)';
+  } else if (total <= 180) {
+    ratingEn = 'Exemplary Rapid Response';
+    ratingAr = 'متقن بامتياز - استجابة قياسية';
+  }
+
+  return {
+    acknowledgeSeconds: ack,
+    followSeconds: follow,
+    totalSeconds: total,
+    remainingTargetSeconds,
+    withinTarget,
+    ratingEn,
+    ratingAr,
+    completedStagesCount,
+    progressPercent,
+    stageTimesSeconds,
   };
 }
 

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   formatTimeMMSS,
   calculateDrillPerformance,
+  calculateFiveStageDrillPerformance,
   getBreathingState,
   containsProhibitedVocabulary,
   getNextSlideIndex,
@@ -41,6 +42,18 @@ test('calculateDrillPerformance computes stage progress and target comparison', 
   const completedSlow = calculateDrillPerformance(25, 110, 260, 260);
   assert.equal(completedSlow.withinTarget, false);
   assert.equal(completedSlow.remainingTargetSeconds, 0);
+});
+
+test('calculateFiveStageDrillPerformance computes 5-stage step-by-step progress accurately', () => {
+  const stage2Done = calculateFiveStageDrillPerformance([10, 28, null, null, null], 35);
+  assert.equal(stage2Done.completedStagesCount, 2);
+  assert.equal(stage2Done.progressPercent, 40);
+
+  const all5Done = calculateFiveStageDrillPerformance([8, 22, 45, 90, 150], 150);
+  assert.equal(all5Done.completedStagesCount, 5);
+  assert.equal(all5Done.progressPercent, 100);
+  assert.equal(all5Done.withinTarget, true);
+  assert.equal(all5Done.totalSeconds, 150);
 });
 
 test('getBreathingState follows the 4-4-8 Ataa calming breathing cycle', () => {
