@@ -796,8 +796,9 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
             >
               {/* STAGE 1 BIG MEDIA: /videos/Instruction Following.mp4 (Starts at Top, Continuous Loop, Strictly Muted) */}
               {activeStage.stageNumber === 1 && (
-                <div className="space-y-4 flex flex-col">
-                  <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-200 aspect-[16/9] w-full shadow-inner">
+                <div className="space-y-3.5 flex flex-col">
+                  {/* Clean Video - Absolutely NO text or overlay on top of video */}
+                  <div className="rounded-2xl overflow-hidden bg-slate-950 border border-slate-200 aspect-[16/9] w-full shadow-inner">
                     <video
                       key="stage-1-instruction-following-video"
                       ref={stageMutedVideoRef}
@@ -813,31 +814,31 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                       data-testid="stage1-muted-video"
                       className="w-full h-full object-cover pointer-events-none select-none"
                     />
-                    {/* Top Overlay Badge & Audio Locked Indicator */}
-                    <div className="absolute top-3 left-3 right-3 flex flex-wrap items-center justify-between gap-2 pointer-events-none z-10">
-                      <span className="px-3 py-1 rounded-xl bg-slate-950/85 text-white text-xs font-mono font-extrabold backdrop-blur-xs border border-white/20">
-                        {isAr
-                          ? 'المرحلة ١ من ٥ · العرض المرئي'
-                          : 'STAGE 1 OF 5 · VISUAL GUIDE'}
+                  </div>
+
+                  {/* Stage 1 Media Details Bar (Completely OUTSIDE Video) */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 px-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-extrabold bg-sky-100 text-sky-900 border border-sky-200">
+                        {isAr ? 'المرحلة ١ من ٥ · العرض المرئي' : 'STAGE 1 OF 5 · VISUAL GUIDE'}
                       </span>
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-950/90 text-white text-xs font-bold border border-white/20 backdrop-blur-xs">
+                      <span className="text-xs sm:text-sm font-extrabold text-slate-900">
+                        {isAr
+                          ? '٠١. التوقف الفوري عن النشاط والاستماع بتركيز للمعلم'
+                          : '01. Stop Activity & Listen to Teacher Instructions'}
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[11px] font-bold">
                         <Lock className="w-3.5 h-3.5 text-[#F59E0B]" aria-hidden="true" />
                         <VolumeX className="w-3.5 h-3.5 text-[#EF4444]" aria-hidden="true" />
                         <span>
-                          {isAr ? 'فيديو صامت مستمر (مغلق الصوت)' : 'Continuous Loop · Audio Locked Muted'}
+                          {isAr ? 'فيديو صامت مستمر' : 'Continuous Loop · Muted'}
                         </span>
-                      </span>
-                    </div>
-
-                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
-                      <span className="px-3.5 py-2 rounded-xl bg-slate-950/85 text-white text-xs sm:text-sm font-extrabold backdrop-blur-xs">
-                        {isAr
-                          ? '٠١. التوقف الفوري عن النشاط والاستماع بتركيز للمعلم'
-                          : '01. Stop Activity & Listen Carefully to Teacher Instructions'}
                       </span>
                       <span
                         dir="ltr"
-                        className="px-2.5 py-1 rounded-lg bg-slate-950/80 text-slate-200 font-mono text-[11px]"
+                        className="px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[11px]"
                       >
                         /videos/Instruction Following.mp4
                       </span>
@@ -893,8 +894,9 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
 
               {/* STAGE 2 BIG MEDIA: /images/Glass Safety.jpg */}
               {activeStage.stageNumber === 2 && (
-                <div className="space-y-4 flex flex-col">
-                  <div className="relative rounded-2xl overflow-hidden bg-slate-900 border border-red-200 aspect-[16/9] w-full shadow-inner">
+                <div className="space-y-3.5 flex flex-col">
+                  {/* Clean Image - Absolutely NO text or overlay on top of image */}
+                  <div className="rounded-2xl overflow-hidden bg-slate-900 border border-red-200 aspect-[16/9] w-full shadow-inner">
                     <img
                       src="/images/Glass Safety.jpg"
                       alt={
@@ -906,19 +908,26 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                       data-testid="stage2-glass-safety-img"
                       className="w-full h-full object-contain bg-slate-950"
                     />
-                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
-                      <span className="px-3.5 py-2 rounded-xl bg-slate-950/85 text-white text-xs sm:text-sm font-extrabold backdrop-blur-xs">
+                  </div>
+
+                  {/* Stage 2 Media Details Bar (Completely OUTSIDE Image) */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 px-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-extrabold bg-red-100 text-red-900 border border-red-200">
+                        {isAr ? 'المرحلة ٢ من ٥ · العرض المرئي' : 'STAGE 2 OF 5 · VISUAL GUIDE'}
+                      </span>
+                      <span className="text-xs sm:text-sm font-extrabold text-slate-900">
                         {isAr
                           ? '٠٢. الابتعاد التام عن النوافذ والواجهات الزجاجية'
                           : '02. Move Away from Windows & Exterior Glass'}
                       </span>
-                      <span
-                        dir="ltr"
-                        className="px-2.5 py-1 rounded-lg bg-slate-950/80 text-white font-mono text-[11px]"
-                      >
-                        /images/Glass Safety.jpg
-                      </span>
                     </div>
+                    <span
+                      dir="ltr"
+                      className="px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[11px]"
+                    >
+                      /images/Glass Safety.jpg
+                    </span>
                   </div>
 
                   {/* Enlarged Key Visual Callouts matching Glass Safety.jpg on Desktop */}
@@ -964,8 +973,9 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
 
               {/* STAGE 3 BIG MEDIA: /videos/Hiding Under Table.mp4 (Starts at Top, Continuous Loop, Strictly Muted) */}
               {activeStage.stageNumber === 3 && (
-                <div className="space-y-4 flex flex-col">
-                  <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-amber-200 aspect-[16/9] w-full shadow-inner">
+                <div className="space-y-3.5 flex flex-col">
+                  {/* Clean Video - Absolutely NO text or overlay on top of video */}
+                  <div className="rounded-2xl overflow-hidden bg-slate-950 border border-amber-200 aspect-[16/9] w-full shadow-inner">
                     <video
                       key="stage-3-hiding-under-table-video"
                       ref={stageMutedVideoRef}
@@ -981,31 +991,31 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                       data-testid="stage3-muted-video"
                       className="w-full h-full object-cover pointer-events-none select-none"
                     />
-                    {/* Top Overlay Badge & Audio Locked Indicator */}
-                    <div className="absolute top-3 left-3 right-3 flex flex-wrap items-center justify-between gap-2 pointer-events-none z-10">
-                      <span className="px-3 py-1 rounded-xl bg-slate-950/85 text-white text-xs font-mono font-extrabold backdrop-blur-xs border border-white/20">
-                        {isAr
-                          ? 'المرحلة ٣ من ٥ · العرض المرئي'
-                          : 'STAGE 3 OF 5 · VISUAL GUIDE'}
-                      </span>
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-950/90 text-white text-xs font-bold border border-white/20 backdrop-blur-xs">
-                        <Lock className="w-3.5 h-3.5 text-[#F59E0B]" aria-hidden="true" />
-                        <VolumeX className="w-3.5 h-3.5 text-[#EF4444]" aria-hidden="true" />
-                        <span>
-                          {isAr ? 'فيديو صامت مستمر (مغلق الصوت)' : 'Continuous Loop · Audio Locked Muted'}
-                        </span>
-                      </span>
-                    </div>
+                  </div>
 
-                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
-                      <span className="px-3.5 py-2 rounded-xl bg-slate-950/85 text-white text-xs sm:text-sm font-extrabold backdrop-blur-xs">
+                  {/* Stage 3 Media Details Bar (Completely OUTSIDE Video) */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 px-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-extrabold bg-amber-100 text-amber-900 border border-amber-200">
+                        {isAr ? 'المرحلة ٣ من ٥ · العرض المرئي' : 'STAGE 3 OF 5 · VISUAL GUIDE'}
+                      </span>
+                      <span className="text-xs sm:text-sm font-extrabold text-slate-900">
                         {isAr
                           ? '٠٣. انزل تحت الطاولة واحمِ الرأس والرقبة بكلتا اليدين'
                           : '03. Drop Underneath Your Desk & Protect Head and Neck'}
                       </span>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 text-white text-[11px] font-bold">
+                        <Lock className="w-3.5 h-3.5 text-[#F59E0B]" aria-hidden="true" />
+                        <VolumeX className="w-3.5 h-3.5 text-[#EF4444]" aria-hidden="true" />
+                        <span>
+                          {isAr ? 'فيديو صامت مستمر' : 'Continuous Loop · Muted'}
+                        </span>
+                      </span>
                       <span
                         dir="ltr"
-                        className="px-2.5 py-1 rounded-lg bg-slate-950/80 text-slate-200 font-mono text-[11px]"
+                        className="px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[11px]"
                       >
                         /videos/Hiding Under Table.mp4
                       </span>
@@ -1061,8 +1071,9 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
 
               {/* STAGE 4 BIG MEDIA: /images/Breathing technique.jpg + Live 4-4-8 Pacer */}
               {activeStage.stageNumber === 4 && (
-                <div className="space-y-4 flex flex-col">
-                  <div className="relative rounded-2xl overflow-hidden bg-white border border-teal-200 aspect-[16/9] w-full shadow-inner">
+                <div className="space-y-3.5 flex flex-col">
+                  {/* Clean Image - Absolutely NO text or overlay on top of image */}
+                  <div className="rounded-2xl overflow-hidden bg-white border border-teal-200 aspect-[16/9] w-full shadow-inner">
                     <img
                       src="/images/Breathing technique.jpg"
                       alt={
@@ -1074,19 +1085,26 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                       data-testid="stage4-breathing-img"
                       className="w-full h-full object-contain bg-white"
                     />
-                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
-                      <span className="px-3.5 py-2 rounded-xl bg-slate-950/85 text-white text-xs sm:text-sm font-extrabold backdrop-blur-xs">
+                  </div>
+
+                  {/* Stage 4 Media Details Bar (Completely OUTSIDE Image) */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 px-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-extrabold bg-teal-100 text-teal-900 border border-teal-200">
+                        {isAr ? 'المرحلة ٤ من ٥ · العرض المرئي' : 'STAGE 4 OF 5 · VISUAL GUIDE'}
+                      </span>
+                      <span className="text-xs sm:text-sm font-extrabold text-slate-900">
                         {isAr
                           ? '٠٤. تهدئة النفس وتطبيق تقنية التنفس ٤-٤-٨'
                           : '04. Calm Yourself · 4-4-8 Calming Breathing Technique'}
                       </span>
-                      <span
-                        dir="ltr"
-                        className="px-2.5 py-1 rounded-lg bg-slate-950/75 text-white font-mono text-[11px]"
-                      >
-                        /images/Breathing technique.jpg
-                      </span>
                     </div>
+                    <span
+                      dir="ltr"
+                      className="px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[11px]"
+                    >
+                      /images/Breathing technique.jpg
+                    </span>
                   </div>
 
                   {/* Enlarged Interactive Live 4-4-8 Breathing Rhythm Bar on Desktop */}
@@ -1132,9 +1150,9 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
 
               {/* STAGE 5 BIG MEDIA: /images/Student In Line.jpg on Top + Grade Evacuation Plan at Bottom */}
               {activeStage.stageNumber === 5 && (
-                <div className="space-y-4 flex flex-col">
-                  {/* Top: Student In Line Image (Assembly point 3 images removed as requested) */}
-                  <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-emerald-200 aspect-[16/9] w-full shadow-inner">
+                <div className="space-y-3.5 flex flex-col">
+                  {/* Clean Image - Absolutely NO text or overlay on top of image */}
+                  <div className="rounded-2xl overflow-hidden bg-slate-950 border border-emerald-200 aspect-[16/9] w-full shadow-inner">
                     <img
                       src="/images/Student In Line.jpg"
                       alt={
@@ -1146,24 +1164,26 @@ export const EmergencySimulationModal: React.FC<EmergencySimulationModalProps> =
                       data-testid="stage5-student-in-line-img"
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent p-3.5 flex items-end justify-between gap-2 pointer-events-none">
-                      <div>
-                        <span className="inline-block px-2.5 py-0.5 rounded-md bg-[#10B981] text-white text-[10px] font-extrabold mb-1">
-                          {isAr ? 'صف فردي منتظم · استخدام الدرج فقط' : 'Orderly Line · Stairs Only'}
-                        </span>
-                        <div className="text-xs sm:text-sm font-extrabold text-white">
-                          {isAr
-                            ? 'السير في صف منتظم خلف المعلم دون تدافع أو ركض'
-                            : 'Orderly Single-File Movement to Designated Destinations'}
-                        </div>
-                      </div>
-                      <span
-                        dir="ltr"
-                        className="px-2.5 py-1 rounded-lg bg-slate-950/80 text-slate-200 font-mono text-[11px]"
-                      >
-                        /images/Student In Line.jpg
+                  </div>
+
+                  {/* Stage 5 Media Details Bar (Completely OUTSIDE Image) */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 px-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-200">
+                        {isAr ? 'المرحلة ٥ من ٥ · العرض المرئي' : 'STAGE 5 OF 5 · VISUAL GUIDE'}
+                      </span>
+                      <span className="text-xs sm:text-sm font-extrabold text-slate-900">
+                        {isAr
+                          ? '٠٥. خطة الإخلاء عند الضرورة · صف فردي منتظم واستخدام الدرج فقط'
+                          : '05. Evacuation When Required · Single-File Line & Stairs Only'}
                       </span>
                     </div>
+                    <span
+                      dir="ltr"
+                      className="px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[11px]"
+                    >
+                      /images/Student In Line.jpg
+                    </span>
                   </div>
 
                   {/* Bottom Section: Grade-by-Grade Evacuation Destination Plan (Enlarged on Desktop) */}
